@@ -7,9 +7,29 @@ set(CMAKE_BUILD_TYPE "Debug")
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-include_directories("/usr/include")
+include(FetchContent)
+FetchContent_Declare(
+  cppparser_common
+  GIT_REPOSITORY git@github.com:satya-das/common.git
+)
 
-file(GLOB SOURCE CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/*.cpp")
+FetchContent_MakeAvailable(cppparser_common)
+
+include(FetchContent)
+FetchContent_Declare(
+  cppparser
+  GIT_REPOSITORY git@github.com:satya-das/cppparser.git
+)
+
+FetchContent_MakeAvailable(cppparser)
+
+include_directories("/usr/include")
+include_directories("src/include")
+
+file(GLOB SOURCE CONFIGURE_DEPENDS 
+"${PROJECT_SOURCE_DIR}/*.cpp"
+"${PROJECT_SOURCE_DIR}/src/source/*.cpp"
+)
 
 add_executable(${PROJECT_NAME} ${SOURCE})
 
