@@ -21,7 +21,8 @@ polymorphic::grammar::grammar()
     data.push_back("*");
     data.push_back("/");
     data.push_back("#");
-    data.push_back(" ");
+    data.push_back(":");
+    data.push_back(":");
     data.push_back("for");
     data.push_back("return");
     data.push_back("int");    
