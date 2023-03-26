@@ -1,13 +1,11 @@
-<b>Polymorphic Program</b>
+# Polymorphic Program
 
 An experimental attempt to "grow" a program, that has varying code that still produes the same output.
 
-<ul>
-<li><b>Ensure project is open within the VSCode development container</b></li>
-<li><b>Hit F5</b></li>
-</ul>
+- Ensure project is open within the VSCode development container
+- Hit F5
 
-Requirements;
+# Requirements
 
 The VSCode development container plugin is installed;
 
