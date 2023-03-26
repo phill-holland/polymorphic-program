@@ -1,0 +1,4 @@
+{
+    "cmake.configureOnOpen": false,
+    "cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/"
+}
