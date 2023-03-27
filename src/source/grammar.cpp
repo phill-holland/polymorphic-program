@@ -11,8 +11,8 @@ polymorphic::grammar::grammar()
     data.push_back("]");
     data.push_back("<");
     data.push_back(">");
-    data.push_back("if");
-    data.push_back("else");
+    //data.push_back("if");
+    //data.push_back("else");
     data.push_back("=");
     data.push_back("==");
     data.push_back(";");
@@ -23,10 +23,11 @@ polymorphic::grammar::grammar()
     data.push_back("#");
     data.push_back(":");
     data.push_back(":");
-    data.push_back("for");
-    data.push_back("return");
-    data.push_back("int");    
-    data.push_back("void");
+    data.push_back(" ");
+    //data.push_back("for");
+    //data.push_back("return");
+    //data.push_back("int");    
+    //data.push_back("void");
     data.push_back("\n");
 
     for(int i = 0; i < 10; ++i)

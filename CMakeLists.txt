@@ -9,11 +9,11 @@ find_package(Threads REQUIRED)
 
 include(FetchContent)
 FetchContent_Declare(
-  cppparser_common
+  common
   GIT_REPOSITORY git@github.com:satya-das/common.git
 )
 
-FetchContent_MakeAvailable(cppparser_common)
+FetchContent_MakeAvailable(common)
 
 include(FetchContent)
 FetchContent_Declare(

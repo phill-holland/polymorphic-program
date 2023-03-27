@@ -23,6 +23,13 @@ void polymorphic::schema::generate()
         int e = (std::uniform_int_distribution<int>{0, grammar->length()})(generator);
         data.push_back(e);
     }
+
+    // ***
+
+    // assume single function void main()
+    // generate blocks; either if { }
+    // else { }
+    // for { }
 }
 
 void polymorphic::schema::mutate()
