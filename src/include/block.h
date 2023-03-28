@@ -1,4 +1,3 @@
-#include "templates/grammar.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -37,11 +36,15 @@ namespace polymorphic
         std::vector<block> children;
 
     public:
+        block() { }
+
+    public:
+        void clear();
         void generate();        
         std::string output();
 
     protected: 
-        std::string get();
+        std::string get(int depth);
         void generate(std::vector<std::string> &names, std::vector<variable> &vars, int depth);
         variable pick(std::vector<variable> &vars, int type);
     };

@@ -2,6 +2,16 @@
 
 std::mt19937_64 polymorphic::block::generator(std::random_device{}());
 
+void polymorphic::block::clear()
+{
+    type = 0;
+    value.clear();
+
+    variables.clear();
+    instructions.clear();
+    children.clear();
+}
+
 void polymorphic::block::generate()
 {
     std::vector<std::string> names;
@@ -34,11 +44,11 @@ void polymorphic::block::generate(std::vector<std::string> &names, std::vector<v
     for(int i = 0; i < instrs; ++i)
     {
         instruction temp;
-        temp.type = (std::uniform_int_distribution<int>{0, 2})(generator); 
+        temp.type = (std::uniform_int_distribution<int>{0, 4})(generator); 
 
-        if(temp.type == 0) // assignment, one var to another
+        if((temp.type == 0)&&(vars.size() > 0)) // assignment, one var to another
         {
-            int j = (std::uniform_int_distribution<int>{0, vars.size() - 1})(generator);
+            int j = (std::uniform_int_distribution<int>{0, ((int)vars.size()) - 1})(generator);
             int t = vars[j].type;
 
             variable a = pick(vars, t);
@@ -46,9 +56,9 @@ void polymorphic::block::generate(std::vector<std::string> &names, std::vector<v
 
             temp.value = a.name + "=" + b.name;
         }
-        else if(temp.type == 1) // assignment, variable new random thing
+        else if((temp.type == 1)&&(vars.size() > 0)) // assignment, variable new random thing
         {
-            int j = (std::uniform_int_distribution<int>{0, vars.size() - 1})(generator);
+            int j = (std::uniform_int_distribution<int>{0, (int)(vars.size()) - 1})(generator);
             variable a = vars[j];
 
             if(a.type == 0) // string
@@ -75,16 +85,16 @@ void polymorphic::block::generate(std::vector<std::string> &names, std::vector<v
                 temp.value = a.name + "=" + (k == 0 ? "true" : "false");
             }
         }
-        else if(temp.type == 3) // cout variable
+        else if((temp.type == 3)&&(vars.size() > 0)) // cout variable
         {
-            int j = (std::uniform_int_distribution<int>{0, vars.size() - 1})(generator);
+            int j = (std::uniform_int_distribution<int>{0, ((int)vars.size()) - 1})(generator);
             variable a = vars[j];
 
             temp.value = "cout << " + a.name;
         }
-        else if(temp.type == 4)
+        else if((temp.type == 4)&&(vars.size() > 0))
         {
-            int j = (std::uniform_int_distribution<int>{0, vars.size() - 1})(generator);
+            int j = (std::uniform_int_distribution<int>{0, ((int)vars.size()) - 1})(generator);
             int t = vars[j].type;
 
             variable a = pick(vars, t);
@@ -103,16 +113,16 @@ void polymorphic::block::generate(std::vector<std::string> &names, std::vector<v
 // or maths
 // +,-,/,* if int
 
-    int length = (std::uniform_int_distribution<int>{0, 10})(generator);
+    int length = (std::uniform_int_distribution<int>{0, 5})(generator);
     
     for(int i = 0; i < length; ++i)
     {
         block temp;
         temp.type = (std::uniform_int_distribution<int>{0, 1})(generator);
 
-        if(temp.type == 0)
+        if((temp.type == 0)&&(vars.size() > 0))
         {
-            int j = (std::uniform_int_distribution<int>{0, vars.size() - 1})(generator);
+            int j = (std::uniform_int_distribution<int>{0, ((int)vars.size()) - 1})(generator);
             int t = vars[j].type;
 
             variable a = pick(vars, t);
@@ -152,40 +162,52 @@ std::string polymorphic::block::output()
     std::string result;
 
     result = "#include <iostream>\nusing namespace std;\n int main() {";
-    result += get();
+    result += get(0);
     result += "return 0;\n}\n";
     
     return result;
 }
 
-std::string polymorphic::block::get()
-{
+std::string polymorphic::block::get(int depth)
+{    
+	auto tabs = [](int depth) 
+	{ 
+		std::string result;
+
+        for(int i = 0; i < depth; ++i)
+        {
+            result += "\t";
+        }
+
+        return result;
+	};
+
     std::string result;
 
-    result += value + "{\n";
+    result += tabs(depth) + value + "{\n";
 
     // string, int, bool
     for(int i = 0; i < variables.size(); ++i)
     {
         variable v = variables[i];
-        if(v.type == 0) result += "string " + v.name + ";\n";
-        else if(v.type == 1) result += "int " + v.name + ";\n";
-        else if(v.type == 2) result += "bool " + v.name +";\n";
+        if(v.type == 0) result += tabs(depth + 1) + "string " + v.name + ";\n";
+        else if(v.type == 1) result += tabs(depth + 1) + "int " + v.name + ";\n";
+        else if(v.type == 2) result += tabs(depth + 1) + "bool " + v.name +";\n";
     }
 
     for(int i = 0; i <instructions.size(); ++i)
     {
         instruction in = instructions[i];
-        result += in.value + ";\n";
+        result += tabs(depth + 1) + in.value + ";\n";
     }
 
     for(int i = 0; i < children.size(); ++i)
     {
         block b = children[i];
-        result += b.get();
+        result += tabs(depth + 1) + b.get(depth + 1);
     }
 
-    result += "}\n";
+    result += tabs(depth) + "}\n";
 
     return result;
 }
@@ -194,7 +216,7 @@ polymorphic::variable polymorphic::block::pick(std::vector<variable> &vars, int 
 {
     while(true) 
     {
-        int i = (std::uniform_int_distribution<int>{0, vars.size() - 1})(generator);
+        int i = (std::uniform_int_distribution<int>{0, ((int)vars.size()) - 1})(generator);
         variable v = vars[i];
 
         if(v.type == type) return vars[i];

@@ -2,7 +2,7 @@
 
 std::mt19937_64 polymorphic::population::generator(std::random_device{}());
 
-void polymorphic::population::reset(templates::grammar *g, int size)
+void polymorphic::population::reset(int size)
 {
     init = false; cleanup();
     this->size = size;
@@ -14,19 +14,20 @@ void polymorphic::population::reset(templates::grammar *g, int size)
 
     for(int i = 0; i < size; ++i) 
     { 
-        data[i] = new polymorphic::schema(g, 100, 1000);
+        data[i] = new polymorphic::schema();
         if(data[i] == NULL) return;
     }
 
     init = true;
 }
 
+/*
 void polymorphic::population::start()
 {
     generate();
     while(!iterate()) { };
 }
-
+*/
 
 void polymorphic::population::generate()
 {
@@ -36,6 +37,7 @@ void polymorphic::population::generate()
     }
 }
 
+/*
 bool polymorphic::population::iterate()
 {
     bool result = false;
@@ -57,6 +59,19 @@ bool polymorphic::population::iterate()
 
     return result;
 }
+*/
+
+std::string polymorphic::population::output()
+{
+    std::string result;
+
+    for(int i = 0; i < size; ++i)
+    {
+        result += data[i]->output();
+    }
+
+    return result;
+}
 
 polymorphic::schema *polymorphic::population::tournament(int j)
 {
@@ -69,8 +84,8 @@ polymorphic::schema *polymorphic::population::tournament(int j)
 
         do
         {
-            r1 = (std::uniform_int_distribution<int>{0, size - 1L})(generator);
-            r2 = (std::uniform_int_distribution<int>{0, size - 1L})(generator);
+            r1 = (std::uniform_int_distribution<int>{0, (int(size)) - 1})(generator);
+            r2 = (std::uniform_int_distribution<int>{0, (int(size)) - 1})(generator);
         } while((r1 != j)&&(r2 != j));
 
         if(data[r1]->score() > data[r2]->score()) temp = data[r1];

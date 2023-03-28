@@ -1,4 +1,3 @@
-#include "templates/grammar.h"
 #include "schema.h"
 #include <random>
 
@@ -17,17 +16,20 @@ namespace polymorphic
         bool init;
 
     public:
-        population(templates::grammar *g, int size) { makeNull(); reset(g, size); }
+        population(int size) { makeNull(); reset(size); }
         ~population() { cleanup(); }
 
         bool initalised() { return init; }
-        void reset(templates::grammar *g, int size);
+        void reset(int size);
 
-        void start();
+        //void start();
 
-    protected:
+    //protected:
         void generate();
-        bool iterate();
+        //bool iterate();
+
+    public:
+        std::string output();
 
     protected:
         schema *tournament(int j);

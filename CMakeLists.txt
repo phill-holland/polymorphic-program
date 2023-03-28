@@ -7,21 +7,21 @@ set(CMAKE_BUILD_TYPE "Debug")
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-include(FetchContent)
-FetchContent_Declare(
-  common
-  GIT_REPOSITORY git@github.com:satya-das/common.git
-)
+#include(FetchContent)
+#FetchContent_Declare(
+#  common
+#  GIT_REPOSITORY git@github.com:satya-das/common.git
+#)
 
-FetchContent_MakeAvailable(common)
+#FetchContent_MakeAvailable(common)
 
-include(FetchContent)
-FetchContent_Declare(
-  cppparser
-  GIT_REPOSITORY git@github.com:satya-das/cppparser.git
-)
+#include(FetchContent)
+#FetchContent_Declare(
+#  cppparser
+#  GIT_REPOSITORY git@github.com:satya-das/cppparser.git
+#)
 
-FetchContent_MakeAvailable(cppparser)
+#FetchContent_MakeAvailable(cppparser)
 
 include_directories("/usr/include")
 include_directories("src/include")

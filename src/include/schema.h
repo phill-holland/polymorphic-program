@@ -1,4 +1,4 @@
-#include "templates/grammar.h"
+#include "block.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -12,24 +12,24 @@ namespace polymorphic
     {
         static std::mt19937_64 generator;
 
-        templates::grammar *grammar;
-
-        std::vector<int> data;
+        block data;
 
         float _score;
-        int _min, _max;
 
     public:
-        schema(templates::grammar *g, int min, int max) { reset(g, min, max); }
+        schema() { reset(); }
         ~schema() { }
 
     public:
         void clear() { data.clear(); }
-        void reset(templates::grammar *g, int min, int max);
+        void reset();
         
         float score() { return _score; }
 
         void generate();
+
+    public:
+        std::string output() { return data.output(); }
 
     public:        
         schema cross(schema &value);
