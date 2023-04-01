@@ -1,4 +1,4 @@
-#include "block.h"
+#include "program.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -12,7 +12,7 @@ namespace polymorphic
     {
         static std::mt19937_64 generator;
 
-        block data;
+        program data;
 
         float _score;
 
