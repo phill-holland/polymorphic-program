@@ -27,9 +27,15 @@ namespace polymorphic
     public:
         void clear();
         void generate();        
+    
         std::string output();
 
-// need function, find used unique variables, return vector of vars::variables
+    public:
+        static program cross(program &a, program &b);
+        static std::vector<program*> deconstruct(program &a);
+
+    protected:
+        program *copy(program *source, program *until);
 
     protected: 
         std::string get(int depth);

@@ -1,4 +1,5 @@
 #include "program.h"
+#include <stack>
 
 std::mt19937_64 polymorphic::program::generator(std::random_device{}());
 
@@ -75,6 +76,67 @@ std::string polymorphic::program::output()
     result += "return 0;\n}\n";
     
     return result;
+}
+
+polymorphic::program polymorphic::program::cross(program &a, program &b)
+{
+    program result;
+
+    std::vector<program*> p1 = deconstruct(a);
+    std::vector<program*> p2 = deconstruct(b);
+
+    int a1 = (std::uniform_int_distribution<int>{0, (int)(p1.size() - 1)})(generator);
+    int b1 = (std::uniform_int_distribution<int>{0, (int)(p2.size() - 1)})(generator);
+
+    program *crossover = result.copy(&a, p1[a1]);
+    crossover->copy(p2[b1], NULL);
+
+    // now work out unqie variables -- search instructions, using unordered_mAP
+    // for result "start" of program, to copy over variables
+
+    return result;
+}
+
+std::vector<polymorphic::program*> polymorphic::program::deconstruct(polymorphic::program &a)
+{
+    std::stack<program*> stack;
+    std::vector<program*> all;
+
+    stack.push(&a);
+
+    while(!stack.empty())
+    {
+        program *t = stack.top();
+        stack.pop();
+
+        all.push_back(t);
+
+        for(int i = 0; i < t->children.size(); ++i)
+        {            
+            stack.push(&a.children[i]);
+        }
+    }
+
+    return all;
+}
+
+polymorphic::program *polymorphic::program::copy(program *source, program *until)
+{
+    if(source != until)
+    {
+        block = source->block;
+        variables = source->variables;
+        instructions = source->instructions;
+        for(int i = 0; i < source->children.size(); ++i)
+        {
+            program p;
+            p.copy(&source->children[i], until);
+            children.push_back(p);
+        }
+    }
+    else return this;
+
+    return NULL;
 }
 
 std::string polymorphic::program::get(int depth)
