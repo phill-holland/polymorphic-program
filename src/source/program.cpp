@@ -194,6 +194,7 @@ std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> polymorphic
 
 std::string polymorphic::program::get(int depth)
 {    
+    /*
 	auto tabs = [](int depth) 
 	{ 
 		std::string result;
@@ -205,6 +206,7 @@ std::string polymorphic::program::get(int depth)
 
         return result;
 	};
+    */
 
     std::string result;
 
@@ -215,10 +217,10 @@ std::string polymorphic::program::get(int depth)
     for(int i = 0; i < children.size(); ++i)
     {
         program b = children[i];
-        result += tabs(depth + 1) + b.get(depth + 1);
+        result += b.get(depth + 1);
     }
 
-    result += tabs(depth) + "}\n";
+    result += "}\n";
 
     return result;
 }
