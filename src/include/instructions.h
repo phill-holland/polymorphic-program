@@ -2,6 +2,7 @@
 #include <string>
 #include <random>
 #include <vector>
+#include <unordered_map>
 
 #ifndef _POLYMORPHIC_INSTRUCTIONS
 #define _POLYMORPHIC_INSTRUCTIONS
@@ -25,6 +26,7 @@ namespace polymorphic
         
             int min, max;
 
+        public:
             std::vector<instruction> values;
             
         public:
@@ -45,6 +47,9 @@ namespace polymorphic
             
             void generate(vars::variables &variables);
             std::string declare(vars::variables &variables);
+
+        public:
+            void copy(instructions &source, std::unordered_map<int, std::tuple<vars::variable,int>> map);
         };
     
     };

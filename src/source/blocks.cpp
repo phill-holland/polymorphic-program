@@ -24,3 +24,18 @@ std::string polymorphic::blocks::block::declare(vars::variables &vars)
 
     return result;
 }
+
+
+void polymorphic::blocks::block::copy(block &source, std::unordered_map<int, std::tuple<vars::variable,int>> map)
+{
+    for(int i = 0; i < source.variables.size(); ++i)
+    {
+        vars::variable temp;
+        vars::variable v = source.variables[i];
+        temp.id = std::get<1>(map[v.id]);
+        temp.type = v.type;
+        variables.push_back(temp);
+    }
+
+    parameters = source.parameters;
+}

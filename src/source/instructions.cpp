@@ -114,3 +114,24 @@ std::string polymorphic::instrs::instructions::declare(vars::variables &variable
 
     return result;
 }    
+
+void polymorphic::instrs::instructions::copy(instructions &source, std::unordered_map<int, std::tuple<vars::variable,int>> map)
+{
+    for(int i = 0; i < source.values.size(); ++i)
+    {
+        instruction s = source.values[i];
+        instruction temp;
+        temp.parameters = s.parameters;
+
+        for(int j = 0; j < s.variables.size(); ++j)
+        {
+            vars::variable t;
+            vars::variable v = s.variables[i];
+            t.id = std::get<1>(map[v.id]);
+            t.type = v.type;
+            temp.variables.push_back(t);
+        }
+        
+        values.push_back(temp);        
+    }
+}

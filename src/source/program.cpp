@@ -1,5 +1,6 @@
 #include "program.h"
 #include <stack>
+#include <unordered_map>
 
 std::mt19937_64 polymorphic::program::generator(std::random_device{}());
 
@@ -88,11 +89,13 @@ polymorphic::program polymorphic::program::cross(program &a, program &b)
     int a1 = (std::uniform_int_distribution<int>{0, (int)(p1.size() - 1)})(generator);
     int b1 = (std::uniform_int_distribution<int>{0, (int)(p2.size() - 1)})(generator);
 
-    program *crossover = result.copy(&a, p1[a1]);
-    crossover->copy(p2[b1], NULL);
+    result.variables = a.variables;
 
-    // now work out unqie variables -- search instructions, using unordered_mAP
-    // for result "start" of program, to copy over variables
+    std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> map;
+    p2[b1]->unique(map, result.variables);
+
+    program *crossover = result.copy(&a, p1[a1]);
+    crossover->copy(p2[b1], map);
 
     return result;
 }
@@ -125,7 +128,6 @@ polymorphic::program *polymorphic::program::copy(program *source, program *until
     if(source != until)
     {
         block = source->block;
-        variables = source->variables;
         instructions = source->instructions;
         for(int i = 0; i < source->children.size(); ++i)
         {
@@ -137,6 +139,57 @@ polymorphic::program *polymorphic::program::copy(program *source, program *until
     else return this;
 
     return NULL;
+}
+
+void polymorphic::program::copy(polymorphic::program *source, std::unordered_map<int, std::tuple<vars::variable,int>> &result)
+{
+    block.copy(source->block, result);
+    instructions.copy(source->instructions, result);
+
+    for(int i = 0; i < source->children.size(); ++i)
+    {
+        program p;
+        p.copy(&source->children[i], result);
+        children.push_back(p);
+    }
+}
+
+std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> polymorphic::program::unique(std::unordered_map<int, std::tuple<vars::variable,int>> &result, vars::variables &input)
+{
+    std::unordered_map<int, vars::variable> map;
+    
+    for(int i = 0; i < block.variables.size(); ++i)
+    {
+        vars::variable v = block.variables[i];
+        if(map.find(v.id) == map.end()) map[v.id] = v;
+    }
+
+    for(int i = 0; i < instructions.values.size(); ++i)
+    {
+        for(int j = 0; j < instructions.values[i].variables.size(); ++j)
+        {
+            vars::variable v = instructions.values[i].variables[j];
+            if(map.find(v.id) == map.end()) map[v.id] = v;
+        }
+    }
+
+    for(int i = 0; i < children.size(); ++i)
+    {
+        children[i].unique(result, input);
+    }
+
+    for(auto& a: map)
+    {
+        if(result.find(a.first) == result.end())
+        {
+            vars::variable w = a.second;
+            vars::variable n = input.get(w.type);
+
+            result[a.first] = std::tuple<vars::variable,int>(w,n.id);
+        }
+    }
+
+    return result;
 }
 
 std::string polymorphic::program::get(int depth)

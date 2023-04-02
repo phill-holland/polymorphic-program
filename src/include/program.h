@@ -4,6 +4,7 @@
 #include <string>
 #include <random>
 #include <vector>
+#include <unordered_map>
 
 #ifndef _POLYMORPHIC_PROGRAM
 #define _POLYMORPHIC_PROGRAM
@@ -36,6 +37,8 @@ namespace polymorphic
 
     protected:
         program *copy(program *source, program *until);
+        void copy(program *source, std::unordered_map<int, std::tuple<vars::variable,int>> &result);
+        std::unordered_map<int, std::tuple<vars::variable,int>> unique(std::unordered_map<int, std::tuple<vars::variable,int>> &result, vars::variables &input);
 
     protected: 
         std::string get(int depth);
