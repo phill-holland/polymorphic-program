@@ -128,7 +128,7 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 # Todo
 
-- Test the cross-over breeding function for programs
+- Test code crossover function
 
 - Need a find unused variable function for each program (and remove)
 
@@ -137,8 +137,6 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 - Need to parse/run output code inline (rather than running an external compiler and running on the OS)
 
 - Edit random string generator to only use "hello world" characters as grammar
-
-- Test code crossover function
 
 - Add code mutation function
 
