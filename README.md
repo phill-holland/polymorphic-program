@@ -118,8 +118,8 @@ public:
     
     void init()
     {
-        generate_variables();
-        generate_instructions();
+        auto variables = generate_variables();
+        generate_instructions(variables);
     }
 };
 ```
