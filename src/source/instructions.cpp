@@ -86,9 +86,9 @@ std::string polymorphic::instrs::instructions::declare(vars::variables &variable
 {
     std::string result;
 
-    for(int i = 0; i < values.size(); ++i)
+    for(std::vector<polymorphic::instrs::instruction>::iterator it = values.begin(); it < values.end(); it++)
     {
-        instruction in = values[i];
+        instruction in = *it;
 
         if(in.type == 0)
         {
@@ -117,16 +117,16 @@ std::string polymorphic::instrs::instructions::declare(vars::variables &variable
 
 void polymorphic::instrs::instructions::copy(instructions &source, std::unordered_map<int, std::tuple<vars::variable,int>> map)
 {
-    for(int i = 0; i < source.values.size(); ++i)
+    for(std::vector<polymorphic::instrs::instruction>::iterator it = source.values.begin(); it < source.values.end(); it++)
     {
-        instruction s = source.values[i];
+        instruction s = *it;
         instruction temp;
         temp.parameters = s.parameters;
 
-        for(int j = 0; j < s.variables.size(); ++j)
+        for(std::vector<polymorphic::vars::variable>::iterator jt = s.variables.begin(); jt < s.variables.end(); jt++)
         {
             vars::variable t;
-            vars::variable v = s.variables[i];
+            vars::variable v = *jt;
             t.id = std::get<1>(map[v.id]);
             t.type = v.type;
             temp.variables.push_back(t);
