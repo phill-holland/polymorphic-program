@@ -1,4 +1,5 @@
 #include "variables.h"
+#include "state.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -35,6 +36,12 @@ namespace polymorphic
 
             std::string declare(vars::variables &vars);
             
+        public:
+            bool evaulate(state &s);
+            
+            bool _if(state &s);
+            bool _loop(state &s);
+
         public:
             void copy(block &source, std::unordered_map<int, std::tuple<vars::variable,int>> map);
         };

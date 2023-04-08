@@ -1,6 +1,7 @@
 #include "variables.h"
 #include "instructions.h"
 #include "blocks.h"
+#include "state.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -27,13 +28,18 @@ namespace polymorphic
 
     public:
         void clear();
-        void generate();        
-    
+        void generate();  
+
+        std::string run();
+        
         std::string output();
 
     public:
         static program cross(program &a, program &b);
         static std::vector<program*> deconstruct(program &a);
+
+    protected:
+        std::string run(state &s);
 
     protected:
         program *copy(program *source, program *until);

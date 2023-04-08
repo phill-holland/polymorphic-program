@@ -23,6 +23,7 @@ namespace polymorphic
             int min, max;
             int idx;
 
+        public:
             std::vector<variable> values;
             
         public:

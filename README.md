@@ -128,13 +128,15 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 # Todo
 
-- Test code crossover function
+- Test code crossover function (OKISH)
 
 - Need a find unused variable function for each program (and remove)
 
-- Fix tabbed output
+- Fix tabbed output (DON'T CARE ABOUT ANYMORE)
 
-- Need to parse/run output code inline (rather than running an external compiler and running on the OS)
+- Need to parse/run output code inline (rather than running an external compiler and running on the OS) (ADDED, NOT TESTED)
+
+- Add string output score function to test outputs afer program run (copy from another project)
 
 - Edit random string generator to only use "hello world" characters as grammar
 

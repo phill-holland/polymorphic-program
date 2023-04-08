@@ -69,6 +69,35 @@ void polymorphic::program::generate(vars::variables &v, int depth)
     }
 }
 
+std::string polymorphic::program::run()
+{
+    state s(variables);
+    return run(s);
+}
+
+std::string polymorphic::program::run(state &s)
+{    
+    std::string result; 
+
+    if(block.evaulate(s))
+    {
+        for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
+        {
+            instrs::instruction in = *it;
+            result += in.run(s);
+        }
+        
+        std::vector<polymorphic::program>::iterator it;
+
+        for(it = children.begin(); it < children.end(); it++)
+        {                    
+            result += it->run(s);
+        }
+    }
+
+    return result;
+}
+
 std::string polymorphic::program::output()
 {
     std::string result;
@@ -133,10 +162,14 @@ polymorphic::program *polymorphic::program::copy(program *source, program *until
     {
         block = source->block;
         instructions = source->instructions;
-        for(int i = 0; i < source->children.size(); ++i)
+
+        std::vector<polymorphic::program>::iterator it;
+
+        for(it = source->children.begin(); it < source->children.end(); it++)
         {
             program p;
-            p.copy(&source->children[i], until);
+            p.copy(&(*it), until);
+            //p.copy(&source->children[i], until);
             children.push_back(p);
         }
     }

@@ -1,4 +1,5 @@
 #include "variables.h"
+#include "state.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -18,6 +19,9 @@ namespace polymorphic
 
             std::vector<vars::variable> variables;
             std::vector<std::string> parameters;
+
+        public:
+            std::string run(state &s);
         };
       
        class instructions

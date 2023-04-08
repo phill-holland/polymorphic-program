@@ -1,5 +1,70 @@
 #include "instructions.h"
 
+std::string polymorphic::instrs::instruction::run(state &s)
+{
+    if(type == 0)
+    {        
+        // assign one variable to another
+
+        vars::variable a = variables.front();
+        vars::variable b = variables.back();
+
+        if((a.type == 0)&&(b.type == 0))
+        {
+            s.strings[a.id] = s.strings[b.id];
+        }
+        else if((a.type == 1)&&(b.type == 1))
+        {
+            s.integers[a.id] = s.integers[b.id];
+        }
+        else if((a.type == 2)&&(b.type == 2))
+        {
+            s.booleans[a.id] = s.booleans[b.id];
+        }
+    }
+    else if (type == 1)
+    {
+        // set variable to const
+
+        vars::variable a = variables.front();
+        std::string parameter = parameters.front();
+
+        if(a.type == 0)
+        {
+            s.strings[a.id] = parameter;
+        }
+        else if(a.type == 1)
+        {
+            s.integers[a.id] = std::atoi(parameter.c_str());
+        }
+        else if(a.type == 2)
+        {
+            s.booleans[a.id] = (parameter == "true" ? true : false);
+        }
+    }
+    else if (type == 2)
+    {
+        // output to result
+
+        vars::variable a = variables.front();
+
+        if(a.type == 0)
+        {
+            return s.strings[a.id];
+        }
+        else if(a.type == 1)
+        {
+            return std::to_string(s.integers[a.id]);
+        }
+        else if(a.type == 2)
+        {
+            return std::to_string(s.booleans[a.id]);
+        }
+    }
+
+    return std::string("");
+}
+
 std::mt19937_64 polymorphic::instrs::instructions::generator(std::random_device{}());
 
 void polymorphic::instrs::instructions::generate(vars::variables &variables)

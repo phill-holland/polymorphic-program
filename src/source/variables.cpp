@@ -40,9 +40,9 @@ std::string polymorphic::vars::variables::declare()
 {
     std::string result;
 
-    for(int i = 0; i < values.size(); ++i)
+    for(std::vector<polymorphic::vars::variable>::iterator it = values.begin(); it < values.end(); it++)
     {
-        variable v = values[i];
+        variable v = *it;
     
         if(v.type == 0) result += "string " + name(v) + ";\n";
         else if(v.type == 1) result += "int " + name(v) + ";\n";
