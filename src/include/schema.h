@@ -20,6 +20,13 @@ namespace polymorphic
         schema() { reset(); }
         ~schema() { }
 
+    private:
+        schema(program data)
+        {
+            reset();
+            this->data = data;
+        }
+
     public:
         void clear() { data.clear(); }
         void reset();
@@ -37,6 +44,9 @@ namespace polymorphic
 
     public:
         void run();        
+
+    protected:
+        float compare(std::string left, std::string right);
     };
 };
 

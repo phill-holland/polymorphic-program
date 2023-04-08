@@ -22,12 +22,11 @@ namespace polymorphic
         bool initalised() { return init; }
         void reset(int size);
 
-        //void start();
-
-    //protected:
         void generate();
-        //bool iterate();
+        bool go(int iterations = 0);
 
+        schema best();
+        
     public:
         std::string output();
 

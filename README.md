@@ -136,9 +136,9 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Need to parse/run output code inline (rather than running an external compiler and running on the OS) (ADDED, NOT TESTED)
 
-- Add string output score function to test outputs afer program run (copy from another project)
+- Add string output score function to test outputs afer program run (copy from another project) (DONE)
 
-- Edit random string generator to only use "hello world" characters as grammar
+- Edit random string generator to only use "hello world" characters as grammar (DONE)
 
 - Add code mutation function
 

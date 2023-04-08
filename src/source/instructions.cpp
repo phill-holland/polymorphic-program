@@ -94,6 +94,13 @@ void polymorphic::instrs::instructions::generate(vars::variables &variables)
                 if(a.type == 0) // string
                 {
                     // random string
+
+                    std::string alphabet[] = { "he", "ll", "o ", "wo", "rl", "d!" }; // 5
+                    std::string s;
+                    
+                    int k = (std::uniform_int_distribution<int>{0, 5})(generator);
+                    s = alphabet[k];
+                    /*
                     std::string s;
                     int k = (std::uniform_int_distribution<int>{0, 10})(generator);
                     for(int i = 0; i < k; ++i)
@@ -101,6 +108,7 @@ void polymorphic::instrs::instructions::generate(vars::variables &variables)
                         int y = (std::uniform_int_distribution<int>{97, 122})(generator);
                         s += (char)y;
                     }
+                    */
 
                     temp.variables.push_back(a);
                     temp.parameters.push_back(s);

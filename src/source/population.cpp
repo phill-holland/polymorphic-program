@@ -21,14 +21,6 @@ void polymorphic::population::reset(int size)
     init = true;
 }
 
-/*
-void polymorphic::population::start()
-{
-    generate();
-    while(!iterate()) { };
-}
-*/
-
 void polymorphic::population::generate()
 {
     for(int i = 0; i < size; ++i)
@@ -37,29 +29,54 @@ void polymorphic::population::generate()
     }
 }
 
-/*
-bool polymorphic::population::iterate()
+bool polymorphic::population::go(int iterations)
 {
     bool result = false;
+    int count = 0;
 
-    for(int i = 0; i < size; ++i)
-    {            
-        schema s1 = *tournament(i);
-        schema s2 = *tournament(i);
+    do
+    {
+        for(int i = 0; i < size; ++i)
+        {            
+            schema s1 = *tournament(i);
+            schema s2 = *tournament(i);
 
-        *data[i] = s1.cross(s2);
+            schema temp = s1.cross(s2);
+            temp.run();
 
-        int t = (std::uniform_int_distribution<int>{0, 100})(generator);
-        if(t <= 10) data[i]->mutate();
+            if(temp.score() > data[i]->score()) *data[i] = temp;
 
-        data[i]->run();
+            //int t = (std::uniform_int_distribution<int>{0, 100})(generator);
+            //if(t <= 10) data[i]->mutate();
 
-        if(data[i]->score() >= 1.0f) result = true;
-    }
+            data[i]->run();
+
+            if(data[i]->score() >= 0.9999f) result = true;
+        }
+
+        if((iterations > 0)&&(count++ > iterations)) result = true;
+
+    } while(!result);
 
     return result;
 }
-*/
+
+polymorphic::schema polymorphic::population::best()
+{
+    float s = 0.0f;
+    int j = 0;
+
+    for(int i = 0; i < size; ++i)
+    {
+        if(data[i]->score() > s)
+        {
+            j = i;
+            s = data[i]->score();
+        }
+    }
+
+    return *data[j];
+}
 
 std::string polymorphic::population::output()
 {
