@@ -49,8 +49,6 @@ bool polymorphic::population::go(int iterations)
             //int t = (std::uniform_int_distribution<int>{0, 100})(generator);
             //if(t <= 10) data[i]->mutate();
 
-            data[i]->run();
-
             if(data[i]->score() >= 0.9999f) result = true;
         }
 
