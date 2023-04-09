@@ -142,6 +142,10 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Add code mutation function
 
+- Suppress output of anything that's not a string (i.e. integers/booleans)
+
+- Add google tests 
+
 - Include the generation code, as part of the randomly generated code (self replicating, can it generate code that generates copies of itself)
 
 # Running
