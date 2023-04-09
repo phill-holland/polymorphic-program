@@ -182,7 +182,7 @@ bool polymorphic::blocks::block::_loop(state &s)
             int v2 = std::atoi(parameter.c_str());
 
             bool result = v1 < v2;
-            s.integers[a.id] = v1 - 1;
+            s.integers[a.id] = v1 + 1;
 
             return result;
         }

@@ -72,27 +72,63 @@ void polymorphic::program::generate(vars::variables &v, int depth)
 std::string polymorphic::program::run()
 {
     state s(variables);
-    return run(s);
+    std::string result;
+
+     for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
+    {
+        instrs::instruction in = *it;
+        result += in.run(s);
+    }
+    
+    std::vector<polymorphic::program>::iterator it;
+
+    for(it = children.begin(); it < children.end(); it++)
+    {                    
+        result += it->run(s);
+    }
+
+    return result;
 }
 
 std::string polymorphic::program::run(state &s)
 {    
     std::string result; 
 
-    if(block.evaulate(s))
+    if(block.type == 0)
     {
-        for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
+        if(block._if(s))
         {
-            instrs::instruction in = *it;
-            result += in.run(s);
-        }
-        
-        std::vector<polymorphic::program>::iterator it;
+            for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
+            {
+                instrs::instruction in = *it;
+                result += in.run(s);
+            }
+            
+            std::vector<polymorphic::program>::iterator it;
 
-        for(it = children.begin(); it < children.end(); it++)
-        {                    
-            result += it->run(s);
+            for(it = children.begin(); it < children.end(); it++)
+            {                    
+                result += it->run(s);
+            }
         }
+    }
+    else if(block.type == 1)
+    {
+        while(block._loop(s))
+        {
+            for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
+            {
+                instrs::instruction in = *it;
+                result += in.run(s);
+            }
+            
+            std::vector<polymorphic::program>::iterator it;
+
+            for(it = children.begin(); it < children.end(); it++)
+            {                    
+                result += it->run(s);
+            }
+        };
     }
 
     return result;

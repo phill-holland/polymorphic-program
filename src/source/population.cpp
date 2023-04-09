@@ -1,4 +1,5 @@
 #include "population.h"
+#include <iostream>
 
 std::mt19937_64 polymorphic::population::generator(std::random_device{}());
 
@@ -33,6 +34,7 @@ bool polymorphic::population::go(int iterations)
 {
     bool result = false;
     int count = 0;
+    float best = 0.0f;
 
     do
     {
@@ -49,8 +51,11 @@ bool polymorphic::population::go(int iterations)
             //int t = (std::uniform_int_distribution<int>{0, 100})(generator);
             //if(t <= 10) data[i]->mutate();
 
+            if(data[i]->score() > best) best = data[i]->score();
             if(data[i]->score() >= 0.9999f) result = true;
         }
+
+        std::cout << "Iteration (" << count << ") Best=" << best << "\r\n";
 
         if((iterations > 0)&&(count++ > iterations)) result = true;
 
