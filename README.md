@@ -130,6 +130,10 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Test code crossover function (OKISH)
 
+- Fix CROSSOVER IS NULL bug
+
+- Include top level input parameters to limit growth size of programs
+
 - Need a find unused variable function for each program (and remove)
 
 - Fix tabbed output (DON'T CARE ABOUT ANYMORE)
