@@ -1,36 +1,24 @@
 cmake_minimum_required(VERSION 3.18)
 
-project(cplusplus)
+project(polymorphic)
 
 set(CMAKE_BUILD_TYPE "Debug")
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-#include(FetchContent)
-#FetchContent_Declare(
-#  common
-#  GIT_REPOSITORY git@github.com:satya-das/common.git
-#)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+)
 
-#FetchContent_MakeAvailable(common)
-
-#include(FetchContent)
-#FetchContent_Declare(
-#  cppparser
-#  GIT_REPOSITORY git@github.com:satya-das/cppparser.git
-#)
-
-#FetchContent_MakeAvailable(cppparser)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
 include_directories("/usr/include")
 include_directories("src/include")
 
-file(GLOB SOURCE CONFIGURE_DEPENDS 
-"${PROJECT_SOURCE_DIR}/*.cpp"
-"${PROJECT_SOURCE_DIR}/src/source/*.cpp"
-)
+add_subdirectory(src)
+add_subdirectory(test)
 
-add_executable(${PROJECT_NAME} ${SOURCE})
-
-target_link_libraries(${PROJECT_NAME} "${CMAKE_THREAD_LIBS_INIT}")
