@@ -91,7 +91,7 @@ polymorphic::vars::variable polymorphic::vars::variables::pick(int type)
         int i = (std::uniform_int_distribution<int>{0, ((int)values.size()) - 1})(generator);
         variable v = values[i];
 
-        if((v.type == type)||(counter>20)) return values[i];
+        if((v.type == type)||(counter > 20)) return values[i];
 
         ++counter;
     };

@@ -35,9 +35,11 @@ bool polymorphic::population::go(int iterations)
     bool result = false;
     int count = 0;
     float best = 0.0f;
-
+    
     do
     {
+        float total = 0.0f;
+
         for(int i = 0; i < size; ++i)
         {            
             schema s1 = *tournament(i);
@@ -51,11 +53,14 @@ bool polymorphic::population::go(int iterations)
             //int t = (std::uniform_int_distribution<int>{0, 100})(generator);
             //if(t <= 10) data[i]->mutate();
 
+            total += data[i]->score();
             if(data[i]->score() > best) best = data[i]->score();
             if(data[i]->score() >= 0.9999f) result = true;
         }
 
-        std::cout << "Iteration (" << count << ") Best=" << best << "\r\n";
+        total /= size;
+
+        std::cout << "Iteration (" << count << ") Best=" << best << " Average=" << total << "\r\n";
 
         if((iterations > 0)&&(count++ > iterations)) result = true;
 

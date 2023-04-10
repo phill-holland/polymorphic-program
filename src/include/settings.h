@@ -1,5 +1,5 @@
 #ifndef _POLYMORPHIC_SETTINGS
-#define _POLYMORPHIC_SETTINGs
+#define _POLYMORPHIC_SETTINGS
 
 namespace polymorphic
 {

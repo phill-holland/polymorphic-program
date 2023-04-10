@@ -1,4 +1,5 @@
 #include "population.h"
+#include "settings.h"
 #include <iostream>
 #include <string.h>
 
@@ -19,7 +20,17 @@ int main(int argc, char *argv[])
 {  
     polymorphic::population p(1);
 
-    polymorphic::program a,b;
+    polymorphic::settings::settings settings;
+
+    settings._children.depth = 3;
+    settings._children.max = 5;
+
+    settings._instructions.min = 1;
+    settings._instructions.max = 5;
+
+    settings._loop.max = 5;
+
+    polymorphic::program a(settings),b;
 
     a.generate();
     b.generate();

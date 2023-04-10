@@ -132,7 +132,7 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Fix CROSSOVER IS NULL bug
 
-- Include top level input parameters to limit growth size of programs
+- Include top level input parameters to limit growth size of programs (DONE)
 
 - Need a find unused variable function for each program (and remove)
 
@@ -146,9 +146,11 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Add code mutation function
 
-- Suppress output of anything that's not a string (i.e. integers/booleans)
+- Suppress output of anything that's not a string (i.e. integers/booleans) (DONEISH)
 
-- Add google tests 
+- Add google tests (DONE)
+
+- Ensure in block._loop function, doesn't go into infinite loop
 
 - Include the generation code, as part of the randomly generated code (self replicating, can it generate code that generates copies of itself)
 

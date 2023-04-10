@@ -18,7 +18,7 @@ std::string polymorphic::blocks::block::declare(vars::variables &vars)
         if((variables.size() > 0)&&(parameters.size() > 0))
         {
             std::string i = vars.name(variables.front());
-            result = "for (int " + i + "=0;" + i + "<" + parameters.front()  + ";++" + i + ")";
+            result = "for (" + i + ";" + i + "<" + parameters.front()  + ";++" + i + ")";
         }
     }
 
