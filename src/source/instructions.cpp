@@ -130,9 +130,18 @@ void polymorphic::instrs::instructions::generate(vars::variables &variables)
             }
             else if(temp.type == 2)// cout variable
             {
+                /*
                 vars::variable a = variables.pick();
-
                 temp.variables.push_back(a);
+                */
+
+                vars::variable a = variables.pick(0);
+                if(a.type == 0) temp.variables.push_back(a);
+                else
+                {
+                    vars::variable b = variables.pick();
+                    temp.variables.push_back(b);
+                }
             }
             /*
             else if(temp.type == 3)//&&(vars.size() > 0))

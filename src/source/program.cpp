@@ -21,15 +21,15 @@ void polymorphic::program::generate()
 
 void polymorphic::program::generate(vars::variables &v, int depth)
 {
-    if(depth > 5) return;
+    if(depth > configuration._children.depth) return;
 
     instructions.generate(v);
 
-    int length = (std::uniform_int_distribution<int>{0, 5})(generator);
+    int length = (std::uniform_int_distribution<int>{0, configuration._children.max})(generator);
     
     for(int i = 0; i < length; ++i)
     {
-        program temp;
+        program temp(configuration);
         temp.block.type = (std::uniform_int_distribution<int>{0, 1})(generator);
 
         if((temp.block.type == 0)&&(!v.isempty()))
@@ -57,7 +57,7 @@ void polymorphic::program::generate(vars::variables &v, int depth)
             vars::variable a = v.pick(1);
             if(a.type == 1)
             {
-                int k = (std::uniform_int_distribution<int>{0, 20})(generator);
+                int k = (std::uniform_int_distribution<int>{0, configuration._loop.max})(generator);
 
                 temp.block.variables.push_back(a);
                 temp.block.parameters.push_back(std::to_string(k));
@@ -205,7 +205,6 @@ polymorphic::program *polymorphic::program::copy(program *source, program *until
         {
             program p;
             p.copy(&(*it), until);
-            //p.copy(&source->children[i], until);
             children.push_back(p);
         }
     }

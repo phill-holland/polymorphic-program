@@ -2,6 +2,7 @@
 #include "instructions.h"
 #include "blocks.h"
 #include "state.h"
+#include "settings.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -22,9 +23,18 @@ namespace polymorphic
         instrs::instructions instructions;
 
         std::vector<program> children;
+        settings::settings configuration;
 
     public:
         program() { }
+
+        program(settings::settings _configuration) 
+        {
+            configuration = _configuration;
+
+            variables = vars::variables(configuration._variables.min, configuration._variables.max); 
+            instructions = instrs::instructions(configuration._instructions.min, configuration._instructions.max);
+        }
 
     public:
         void clear();
