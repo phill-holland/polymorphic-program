@@ -21,7 +21,7 @@ namespace polymorphic
         class variables
         {
             static const int MIN = 1;
-            static const int MAX = 2;
+            static const int MAX = 5;
 
         public:
             int min, max;
