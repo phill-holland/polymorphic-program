@@ -38,6 +38,11 @@ std::string polymorphic::schema::run()
 			if(d > 20) d = 20;
 			_score = ((d / 20.0f) * -1.0f) + 1.0f;
 
+			if(output.find(std::string("hel")) != std::string::npos) _score *= 0.25;
+			if(output.find(std::string("lo  ")) != std::string::npos) _score *= 0.25;
+			if(output.find(std::string("wor")) != std::string::npos) _score *= 0.25;
+			if(output.find(std::string("ld!")) != std::string::npos) _score *= 0.25;
+			
 			int c = 0;
 			int s = l1;
 			if(l2 < l1) s = l2;

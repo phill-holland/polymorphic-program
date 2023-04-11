@@ -54,9 +54,9 @@ void polymorphic::program::generate(vars::variables &v, int depth)
         }
         else if(temp.block.type == 1)
         {
-            //vars::variable a = v.pick(1);
-            //if(a.type != 1) a = v.get(1);
-            vars::variable a = v.local(1);
+            vars::variable a = v.pick(1);
+            if(a.type != 1) a = v.get(1);
+            //vars::variable a = v.local(1);
             
             int k = (std::uniform_int_distribution<int>{0, configuration._loop.max})(generator);
 
@@ -84,15 +84,16 @@ std::string polymorphic::program::run()
 
     for(it = children.begin(); it < children.end(); it++)
     {                    
-        result += it->run(s);
+        result += it->run(s,0);
     }
 
     return result;
 }
 
-std::string polymorphic::program::run(state &s)
+std::string polymorphic::program::run(state &s, int iterations)
 {    
     std::string result; 
+    if(iterations > 10000) return result;
 
     if(block.type == 0)
     {
@@ -108,7 +109,7 @@ std::string polymorphic::program::run(state &s)
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s);
+                result += it->run(s, iterations + 1);
             }
         }
     }
@@ -126,7 +127,7 @@ std::string polymorphic::program::run(state &s)
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s);
+                result += it->run(s, iterations + 1);
             }
         };
     }

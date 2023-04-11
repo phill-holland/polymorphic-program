@@ -20,7 +20,7 @@ void run()
     polymorphic::population p(settings, 100);
 
     p.generate();
-    p.go(500);
+    p.go(1000);
 
     polymorphic::schema best = p.best();
     
