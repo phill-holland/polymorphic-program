@@ -54,8 +54,9 @@ void polymorphic::program::generate(vars::variables &v, int depth)
         }
         else if(temp.block.type == 1)
         {
-            vars::variable a = v.pick(1);
-            if(a.type != 1) a = v.get(1);
+            //vars::variable a = v.pick(1);
+            //if(a.type != 1) a = v.get(1);
+            vars::variable a = v.local(1);
             
             int k = (std::uniform_int_distribution<int>{0, configuration._loop.max})(generator);
 

@@ -3,7 +3,7 @@
 
 std::mt19937_64 polymorphic::population::generator(std::random_device{}());
 
-void polymorphic::population::reset(int size)
+void polymorphic::population::reset(settings::settings config, int size)
 {
     init = false; cleanup();
     this->size = size;
@@ -15,7 +15,7 @@ void polymorphic::population::reset(int size)
 
     for(int i = 0; i < size; ++i) 
     { 
-        data[i] = new polymorphic::schema();
+        data[i] = new polymorphic::schema(config);
         if(data[i] == NULL) return;
     }
 
@@ -46,6 +46,8 @@ bool polymorphic::population::go(int iterations)
             schema s2 = *tournament(i);
 
             schema temp = s1.cross(s2);
+
+            std::cout << temp.output();
             temp.run();
 
             if(temp.score() > data[i]->score()) *data[i] = temp;
@@ -62,7 +64,9 @@ bool polymorphic::population::go(int iterations)
 
         std::cout << "Iteration (" << count << ") Best=" << best << " Average=" << total << "\r\n";
 
-        if((iterations > 0)&&(count++ > iterations)) result = true;
+        if((iterations > 0)&&(count > iterations)) result = true;
+
+        ++count;
 
     } while(!result);
 

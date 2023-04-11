@@ -14,6 +14,10 @@ namespace polymorphic
         public:
             int id;
             int type;
+            bool is_local;
+
+        public:
+            variable() { id = 0; type = 0; is_local = false; }
         };
 
         class variables
@@ -48,7 +52,8 @@ namespace polymorphic
         public:
             variable get();
             variable get(int type);
-            
+            variable local(int type);
+
         public:
             variable pick();
             variable pick(int type);

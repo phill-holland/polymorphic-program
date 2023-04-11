@@ -44,9 +44,12 @@ std::string polymorphic::vars::variables::declare()
     {
         variable v = *it;
     
-        if(v.type == 0) result += "string " + name(v) + ";\n";
-        else if(v.type == 1) result += "int " + name(v) + ";\n";
-        else if(v.type == 2) result += "bool " + name(v) +";\n";
+        if(!v.is_local)
+        {
+            if(v.type == 0) result += "string " + name(v) + ";\n";
+            else if(v.type == 1) result += "int " + name(v) + ";\n";
+            else if(v.type == 2) result += "bool " + name(v) +";\n";
+        }
 
     }
 
@@ -59,7 +62,8 @@ polymorphic::vars::variable polymorphic::vars::variables::get()
 
     temp.id = inc();
     temp.type = (std::uniform_int_distribution<int>{0, 2})(generator); 
-    
+    temp.is_local = false;
+
     values.push_back(temp);
 
     return temp;
@@ -71,7 +75,21 @@ polymorphic::vars::variable polymorphic::vars::variables::get(int type)
 
     temp.id = inc();
     temp.type = type;
-    
+    temp.is_local = false;
+
+    values.push_back(temp);
+
+    return temp;
+}
+
+polymorphic::vars::variable polymorphic::vars::variables::local(int type)
+{
+    variable temp;
+
+    temp.id = inc();
+    temp.type = type;
+    temp.is_local = true;
+
     values.push_back(temp);
 
     return temp;
@@ -79,8 +97,20 @@ polymorphic::vars::variable polymorphic::vars::variables::get(int type)
 
 polymorphic::vars::variable polymorphic::vars::variables::pick()
 {
-    int i = (std::uniform_int_distribution<int>{0, ((int)values.size()) - 1})(generator);
-    return values[i];    
+    int counter = 0;
+    while(true) 
+    {
+        int i = (std::uniform_int_distribution<int>{0, ((int)values.size()) - 1})(generator);
+        variable v = values[i];
+
+        if((!v.is_local)||(counter > 20)) return values[i];
+
+        ++counter;
+    };
+
+    //int i = (std::uniform_int_distribution<int>{0, ((int)values.size()) - 1})(generator);
+    //return values[0];    
+    //return get();
 }
 
 polymorphic::vars::variable polymorphic::vars::variables::pick(int type)
@@ -91,8 +121,10 @@ polymorphic::vars::variable polymorphic::vars::variables::pick(int type)
         int i = (std::uniform_int_distribution<int>{0, ((int)values.size()) - 1})(generator);
         variable v = values[i];
 
-        if((v.type == type)||(counter > 20)) return values[i];
+        if(((v.type == type)&&(!v.is_local))||(counter > 20)) return values[i];
 
         ++counter;
     };
+
+    //return get(type);//values[0];
 }

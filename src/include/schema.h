@@ -1,4 +1,5 @@
 #include "program.h"
+#include "settings.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -18,6 +19,13 @@ namespace polymorphic
 
     public:
         schema() { reset(); }
+        schema(polymorphic::settings::settings settings)
+        {
+            reset();
+            data = program(settings);
+        }
+
+
         ~schema() { }
 
     private:
@@ -43,7 +51,7 @@ namespace polymorphic
         void mutate();
 
     public:
-        void run();        
+        std::string run();        
 
     protected:
         float compare(std::string left, std::string right);

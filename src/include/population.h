@@ -1,4 +1,5 @@
 #include "schema.h"
+#include "settings.h"
 #include <random>
 
 #ifndef _POLYMORPHIC_POPULATION
@@ -16,11 +17,11 @@ namespace polymorphic
         bool init;
 
     public:
-        population(int size) { makeNull(); reset(size); }
+        population(settings::settings config, int size) { makeNull(); reset(config, size); }
         ~population() { cleanup(); }
 
         bool initalised() { return init; }
-        void reset(int size);
+        void reset(settings::settings config, int size);
 
         void generate();
         bool go(int iterations = 0);

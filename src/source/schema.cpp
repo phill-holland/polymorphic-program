@@ -23,10 +23,40 @@ polymorphic::schema polymorphic::schema::cross(schema &value)
     return schema(p);
 }
 
-void polymorphic::schema::run()
+std::string polymorphic::schema::run()
 {
     std::string output = data.run();
-    _score = compare(output, "hello world!");
+	if(output.size() > 0)
+	{
+		std::string comp("hello world!");
+		int l1 = comp.size();
+		int l2 = output.size();
+
+		//if(l2 > l1)
+		//{
+			int d = abs(l2 - l1);
+			if(d > 20) d = 20;
+			_score = ((d / 20.0f) * -1.0f) + 1.0f;
+
+			int c = 0;
+			int s = l1;
+			if(l2 < l1) s = l2;
+			for(int i = 0; i < s; ++i)
+			{
+				if(comp[i] == output[i]) ++c;
+			}
+
+			float tt = ((float)c)/((float)l1);
+			_score *= tt;
+		//}
+    	//_score = compare(output, "hello world!");
+		/*if(_score > 0.0f) 
+		{
+			std::string moo = "hello";
+		}*/
+	}
+
+	return output;
 }
 
 float polymorphic::schema::compare(std::string left, std::string right)
