@@ -46,9 +46,9 @@ std::string polymorphic::vars::variables::declare()
     
         //if(!v.is_local)
         //{
-            if(v.type == 0) result += "string " + name(v) + ";\n";
-            else if(v.type == 1) result += "int " + name(v) + ";\n";
-            else if(v.type == 2) result += "bool " + name(v) +";\n";
+            if(v.type == 0) result += "string " + name(v) + " = \"\";\n";
+            else if(v.type == 1) result += "int " + name(v) + " = 0;\n";
+            else if(v.type == 2) result += "bool " + name(v) +"= false;\n";
         //}
 
     }

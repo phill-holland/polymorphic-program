@@ -115,7 +115,8 @@ std::string polymorphic::program::run(state &s, int iterations)
     }
     else if(block.type == 1)
     {
-        while(block._loop(s))
+        int counter = 0;
+        while((block._loop(s))&&(counter < 10000))
         {
             for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
             {
@@ -129,6 +130,7 @@ std::string polymorphic::program::run(state &s, int iterations)
             {                    
                 result += it->run(s, iterations + 1);
             }
+            ++counter;
         };
     }
 
@@ -163,7 +165,7 @@ polymorphic::program polymorphic::program::cross(program &a, program &b)
 
     program *crossover = result.copy(&a, p1[a1]);
     if(crossover != NULL) crossover->copy(p2[b1], map);
-    else std::cout << "crossover is null!\r\n";
+    //else std::cout << "crossover is null!\r\n";
 
     return result;
 }

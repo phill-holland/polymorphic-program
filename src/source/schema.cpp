@@ -25,6 +25,8 @@ polymorphic::schema polymorphic::schema::cross(schema &value)
 
 std::string polymorphic::schema::run()
 {
+	_score = 0.0f;
+	
     std::string output = data.run();
 	if(output.size() > 0)
 	{
@@ -34,15 +36,19 @@ std::string polymorphic::schema::run()
 
 		//if(l2 > l1)
 		//{
+			
 			int d = abs(l2 - l1);
 			if(d > 20) d = 20;
 			_score = ((d / 20.0f) * -1.0f) + 1.0f;
-
+			
 			if(output.find(std::string("hel")) != std::string::npos) _score *= 0.25;
 			if(output.find(std::string("lo  ")) != std::string::npos) _score *= 0.25;
 			if(output.find(std::string("wor")) != std::string::npos) _score *= 0.25;
 			if(output.find(std::string("ld!")) != std::string::npos) _score *= 0.25;
 			
+			if(output.find(std::string("hello")) != std::string::npos) _score *= 0.30;
+			if(output.find(std::string("world!")) != std::string::npos) _score *= 0.30;
+
 			int c = 0;
 			int s = l1;
 			if(l2 < l1) s = l2;

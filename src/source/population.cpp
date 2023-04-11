@@ -47,7 +47,7 @@ bool polymorphic::population::go(int iterations)
 
             schema temp = s1.cross(s2);
 
-            std::cout << temp.output();
+            //std::cout << temp.output();
             temp.run();
 
             if(temp.score() > data[i]->score()) *data[i] = temp;
@@ -55,9 +55,9 @@ bool polymorphic::population::go(int iterations)
             //int t = (std::uniform_int_distribution<int>{0, 100})(generator);
             //if(t <= 10) data[i]->mutate();
 
-            total += data[i]->score();
-            if(data[i]->score() > best) best = data[i]->score();
-            if(data[i]->score() >= 0.9999f) result = true;
+            total += temp.score();//data[i]->score();
+            if(temp.score() > best) best = temp.score();
+            if(temp.score() >= 0.9999f) result = true;
         }
 
         total /= size;
