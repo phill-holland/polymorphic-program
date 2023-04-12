@@ -130,7 +130,7 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Test code crossover function (OKISH)
 
-- Fix CROSSOVER IS NULL bug
+- Fix CROSSOVER IS NULL bug (DONE)
 
 - Include top level input parameters to limit growth size of programs (DONE)
 
@@ -150,9 +150,15 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Add google tests (DONE)
 
-- Ensure in block._loop function, doesn't go into infinite loop
+- Ensure in block._loop function, doesn't go into infinite loop DONEISH
 
 - Include the generation code, as part of the randomly generated code (self replicating, can it generate code that generates copies of itself)
+
+- Variable STATE INIT - GENERATE RANDOM INIT VARIABLES
+
+- BUG SUPPRESS VARIABLE COMPARISONS WITH SELF
+
+- BUG SUPPRESS VARIABLE ASSIGNMENTS TO SELF
 
 # Running
 

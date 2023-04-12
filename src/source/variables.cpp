@@ -26,10 +26,10 @@ std::string polymorphic::vars::variables::name(polymorphic::vars::variable &v)
 
     do
     {
-        char c = (char)(t % 26);
+        char c = (char)(t % 25);
         result += (c + 97);
-        t -= 26;
-    }while(t > 26);
+        t -= 25;
+    }while(t > 25);
 
     if(t > 0) result += (char)(t + 97);
 
