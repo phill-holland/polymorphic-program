@@ -15,6 +15,7 @@ void run()
     settings._instructions.min = 1;
     settings._instructions.max = 5;
 
+    settings._loop.min = 1;
     settings._loop.max = 5;
 
     polymorphic::population p(settings, 800);

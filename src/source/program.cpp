@@ -68,7 +68,7 @@ void polymorphic::program::generate(vars::variables &v, int depth)
             if(a.type != 1) a = v.get(1);
             //vars::variable a = v.local(1);
             
-            int k = (std::uniform_int_distribution<int>{0, configuration._loop.max})(generator);
+            int k = (std::uniform_int_distribution<int>{configuration._loop.min, configuration._loop.max})(generator);
 
             temp.block.variables.push_back(a);
             temp.block.parameters.push_back(std::to_string(k));

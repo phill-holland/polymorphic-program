@@ -44,13 +44,15 @@ namespace polymorphic
 
         class loop      
         {
+            static const int MIN = 0;
             static const int MAX = 20;
 
         public:
+            int min;
             int max;
 
         public:
-            loop(int _max = MAX) { max = _max; }
+            loop(int _min = MIN, int _max = MAX) { min = _min; max = _max; }
         };
 
         class settings
