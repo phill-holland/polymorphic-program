@@ -81,9 +81,19 @@ void polymorphic::instrs::instructions::generate(vars::variables &variables)
 
             if(temp.type == 0)
             {
-                vars::variable a = variables.pick();
-                vars::variable b = variables.pick(a.type);
-                
+                //vars::variable a = variables.pick();
+                //vars::variable b = variables.pick(a.type);
+
+                vars::variable a;
+                vars::variable b;
+
+                int counter = 0;
+                do
+                {
+                    a = variables.pick();
+                    b = variables.pick(a.type);
+                }while((counter++ < 10)&&(a.id==b.id));
+
                 temp.variables.push_back(a);
                 temp.variables.push_back(b);
             }
@@ -120,7 +130,7 @@ void polymorphic::instrs::instructions::generate(vars::variables &variables)
                         int y = (std::uniform_int_distribution<int>{0, 8})(generator);
                         s += alphabet[y];
                     }
-                    */
+                   */
                     //s = alphabet[k];
 
                     /*
@@ -226,6 +236,8 @@ void polymorphic::instrs::instructions::copy(instructions &source, std::unordere
     {
         instruction s = *it;
         instruction temp;
+
+        temp.type = s.type;
         temp.parameters = s.parameters;
 
         for(std::vector<polymorphic::vars::variable>::iterator jt = s.variables.begin(); jt < s.variables.end(); jt++)

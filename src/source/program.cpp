@@ -34,8 +34,18 @@ void polymorphic::program::generate(vars::variables &v, int depth)
 
         if((temp.block.type == 0)&&(!v.isempty()))
         {
-            vars::variable a = v.pick();
-            vars::variable b = v.pick(a.type);
+            //vars::variable a = v.pick();
+            //vars::variable b = v.pick(a.type);
+
+            vars::variable a;
+            vars::variable b;
+
+            int counter = 0;
+            do
+            {
+                a = v.pick();
+                b = v.pick(a.type);
+            }while((counter++ < 10)&&(a.id==b.id));
 
             temp.block.variables.push_back(a);
             temp.block.variables.push_back(b);
@@ -148,7 +158,7 @@ std::string polymorphic::program::output()
     return result;
 }
 
-polymorphic::program polymorphic::program::cross(program &a, program &b)
+polymorphic::program polymorphic::program::cross(program &a, program &b, int c1, int c2)
 {
     program result;
 
@@ -158,14 +168,18 @@ polymorphic::program polymorphic::program::cross(program &a, program &b)
     int a1 = (std::uniform_int_distribution<int>{0, (int)(p1.size() - 1)})(generator);
     int b1 = (std::uniform_int_distribution<int>{0, (int)(p2.size() - 1)})(generator);
 
+    if((c1 >= 0)&&(c1 < p1.size()))
+        a1 = c1;
+
+    if((c2 >= 0)&&(c2 < p2.size()))
+        b1 = c2;
+
     result.variables = a.variables;
 
     std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> map;
     p2[b1]->unique(map, result.variables);
 
-    program *crossover = result.copy(&a, p1[a1]);
-    if(crossover != NULL) crossover->copy(p2[b1], map);
-    //else std::cout << "crossover is null!\r\n";
+    result.copy(&a, p1[a1], p2[b1], map);
 
     return result;
 }
@@ -195,7 +209,9 @@ std::vector<polymorphic::program*> polymorphic::program::deconstruct(polymorphic
     return result;
 }
 
-polymorphic::program *polymorphic::program::copy(program *source, program *until)
+void polymorphic::program::copy(program *source, program *until,
+                                polymorphic::program *alt_source, 
+                                std::unordered_map<int, std::tuple<vars::variable,int>> &result)
 {
     if(source != until)
     {
@@ -207,13 +223,14 @@ polymorphic::program *polymorphic::program::copy(program *source, program *until
         for(it = source->children.begin(); it < source->children.end(); it++)
         {
             program p;
-            p.copy(&(*it), until);
-            children.push_back(p);
+            p.copy(&(*it), until, alt_source, result);
+            children.push_back(p);            
         }
     }
-    else return this;
-
-    return NULL;
+    else
+    {
+        this->copy(alt_source, result);     
+    }
 }
 
 void polymorphic::program::copy(polymorphic::program *source, std::unordered_map<int, std::tuple<vars::variable,int>> &result)
