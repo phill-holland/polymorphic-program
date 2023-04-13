@@ -18,10 +18,10 @@ void run()
     settings._loop.min = 1;
     settings._loop.max = 5;
 
-    polymorphic::population p(settings, 800);
+    polymorphic::population p(settings, 200);
 
     p.generate();
-    p.go(40);
+    p.go(500);
 
     polymorphic::schema best = p.best();
     

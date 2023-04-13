@@ -19,6 +19,22 @@ void polymorphic::program::generate()
     generate(variables, 0);
 }
 
+void polymorphic::program::mutate()
+{
+    std::vector<program*> p1 = deconstruct(*this);
+    int a1 = (std::uniform_int_distribution<int>{0, (int)(p1.size() - 1)})(generator);
+    int a2 = (std::uniform_int_distribution<int>{0, 1})(generator);
+
+    if(a2 == 0)
+    {
+        p1[a1]->block.mutate(configuration, variables);
+    }
+    else if(a2 == 1)
+    {
+        p1[a1]->instructions.mutate(variables);
+    }
+}
+
 void polymorphic::program::generate(vars::variables &v, int depth)
 {
     if(depth > configuration._children.depth) return;
@@ -126,7 +142,7 @@ std::string polymorphic::program::run(state &s, int iterations)
     else if(block.type == 1)
     {
         int counter = 0;
-        while((block._loop(s))&&(counter < 10000))
+        while((block._loop(s))&&(counter < 2500))
         {
             for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
             {

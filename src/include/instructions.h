@@ -14,6 +14,8 @@ namespace polymorphic
     {
         class instruction
         {
+            static std::mt19937_64 generator;
+
         public:            
             int type;
 
@@ -22,6 +24,11 @@ namespace polymorphic
 
         public:
             std::string run(state &s);
+
+            void mutate(vars::variables &variables);
+
+            void generate(vars::variables &variables);
+            void generate(vars::variables &variables, int type);            
         };
       
        class instructions
@@ -48,6 +55,8 @@ namespace polymorphic
             }
 
             int isempty() { return values.size() == 0; }
+            
+            void mutate(vars::variables &variables);
             
             void generate(vars::variables &variables);
             std::string declare(vars::variables &variables);

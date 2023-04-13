@@ -314,10 +314,6 @@ return 0;
     main.instructions.values.push_back(i2);
 
     v2 = main.variables.get(1);
-    //v2.id = 2;
-    //v2.type = 1;
-
-    //main.variables.values.push_back(v2);
 
     polymorphic::program _for;
 

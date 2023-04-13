@@ -1,5 +1,7 @@
 #include "instructions.h"
 
+std::mt19937_64 polymorphic::instrs::instruction::generator(std::random_device{}());
+
 std::string polymorphic::instrs::instruction::run(state &s)
 {
     if(type == 0)
@@ -65,7 +67,124 @@ std::string polymorphic::instrs::instruction::run(state &s)
     return std::string("");
 }
 
+void polymorphic::instrs::instruction::mutate(vars::variables &variables)
+{
+    generate(variables, type);
+}
+
+void polymorphic::instrs::instruction::generate(vars::variables &variables)
+{
+    int type = (std::uniform_int_distribution<int>{0, 2})(generator); 
+    generate(variables, type);
+}
+
+void polymorphic::instrs::instruction::generate(vars::variables &variables, int type)
+{
+    instruction temp;
+    temp.type = type;
+
+    if(temp.type == 0)
+    {
+        vars::variable a;
+        vars::variable b;
+
+        int counter = 0;
+        do
+        {
+            a = variables.pick();
+            b = variables.pick(a.type);
+        }while((counter++ < 10)&&(a.id==b.id));
+
+        temp.variables.push_back(a);
+        temp.variables.push_back(b);
+    }
+    else if(temp.type == 1)
+    {
+        vars::variable a = variables.pick();
+
+        if(a.type == 0) // string
+        {
+            // random string
+
+            std::string alphabet[] = { "he", "ll", "o ", "wo", "rl", "d!" }; // 5
+            std::string s;
+            
+            int k = (std::uniform_int_distribution<int>{0, 5})(generator);
+            s = alphabet[k];
+            
+            /*
+            std::string alphabet[] = { "hello ", "world!" }; // 5
+            std::string s;
+            
+            int k = (std::uniform_int_distribution<int>{0, 1})(generator);
+            s = alphabet[k];
+            */
+
+/*
+            std::string alphabet[] = { "h", "e", "l", "o ", "w", "r", "d", "!", " " }; // 5
+            std::string s;
+            
+            int k = (std::uniform_int_distribution<int>{0, 5})(generator);                    
+            for(int i = 0; i < k; ++i)
+            {
+                int y = (std::uniform_int_distribution<int>{0, 8})(generator);
+                s += alphabet[y];
+            }
+            */
+            //s = alphabet[k];
+
+            /*
+            std::string s;
+            int k = (std::uniform_int_distribution<int>{0, 10})(generator);
+            for(int i = 0; i < k; ++i)
+            {
+                int y = (std::uniform_int_distribution<int>{97, 122})(generator);
+                s += (char)y;
+            }
+            */
+
+            temp.variables.push_back(a);
+            temp.parameters.push_back(s);
+        }
+        else if(a.type == 1) // int
+        {
+            int k = (std::uniform_int_distribution<int>{0, 100})(generator);
+
+            temp.variables.push_back(a);
+            temp.parameters.push_back(std::to_string(k));
+        }
+        else if(a.type == 2) // bool
+        {
+            int k = (std::uniform_int_distribution<int>{0, 1})(generator);
+            
+            temp.variables.push_back(a);
+            temp.parameters.push_back(std::string((k == 0 ? "true" : "false")));
+        }
+    }
+    else if(temp.type == 2)// cout variable
+    {
+        vars::variable a = variables.pick(0);
+        if(a.type == 0) temp.variables.push_back(a);
+        else
+        {
+            vars::variable b = variables.pick();
+            temp.variables.push_back(b);
+        }
+    }
+
+    *this = temp;       
+}
+
 std::mt19937_64 polymorphic::instrs::instructions::generator(std::random_device{}());
+
+void polymorphic::instrs::instructions::mutate(vars::variables &variables)
+{
+    if(values.size() > 0)
+    {
+        int j = (std::uniform_int_distribution<int>{0, (int)(values.size() - 1)})(generator);
+        values[j].mutate(variables);
+    }
+}
 
 void polymorphic::instrs::instructions::generate(vars::variables &variables)
 {
@@ -77,121 +196,8 @@ void polymorphic::instrs::instructions::generate(vars::variables &variables)
         for(int i = 0; i < instrs; ++i)
         {
             instruction temp;
-            temp.type = (std::uniform_int_distribution<int>{0, 2})(generator); 
 
-            if(temp.type == 0)
-            {
-                //vars::variable a = variables.pick();
-                //vars::variable b = variables.pick(a.type);
-
-                vars::variable a;
-                vars::variable b;
-
-                int counter = 0;
-                do
-                {
-                    a = variables.pick();
-                    b = variables.pick(a.type);
-                }while((counter++ < 10)&&(a.id==b.id));
-
-                temp.variables.push_back(a);
-                temp.variables.push_back(b);
-            }
-            else if(temp.type == 1)
-            {
-                vars::variable a = variables.pick();
-
-                if(a.type == 0) // string
-                {
-                    // random string
-
-                    
-                    std::string alphabet[] = { "he", "ll", "o ", "wo", "rl", "d!" }; // 5
-                    std::string s;
-                    
-                    int k = (std::uniform_int_distribution<int>{0, 5})(generator);
-                    s = alphabet[k];
-                    
-                    /*
-                    std::string alphabet[] = { "hello ", "world!" }; // 5
-                    std::string s;
-                    
-                    int k = (std::uniform_int_distribution<int>{0, 1})(generator);
-                    s = alphabet[k];
-                    */
-
-/*
-                    std::string alphabet[] = { "h", "e", "l", "o ", "w", "r", "d", "!", " " }; // 5
-                    std::string s;
-                    
-                    int k = (std::uniform_int_distribution<int>{0, 5})(generator);                    
-                    for(int i = 0; i < k; ++i)
-                    {
-                        int y = (std::uniform_int_distribution<int>{0, 8})(generator);
-                        s += alphabet[y];
-                    }
-                   */
-                    //s = alphabet[k];
-
-                    /*
-                    std::string s;
-                    int k = (std::uniform_int_distribution<int>{0, 10})(generator);
-                    for(int i = 0; i < k; ++i)
-                    {
-                        int y = (std::uniform_int_distribution<int>{97, 122})(generator);
-                        s += (char)y;
-                    }
-                    */
-
-                    temp.variables.push_back(a);
-                    temp.parameters.push_back(s);
-                }
-                else if(a.type == 1) // int
-                {
-                    int k = (std::uniform_int_distribution<int>{0, 100})(generator);
-
-                    temp.variables.push_back(a);
-                    temp.parameters.push_back(std::to_string(k));
-                }
-                else if(a.type == 2) // bool
-                {
-                    int k = (std::uniform_int_distribution<int>{0, 1})(generator);
-                    
-                    temp.variables.push_back(a);
-                    temp.parameters.push_back(std::string((k == 0 ? "true" : "false")));
-                }
-            }
-            else if(temp.type == 2)// cout variable
-            {
-                /*
-                vars::variable a = variables.pick();
-                temp.variables.push_back(a);
-                */
-
-                vars::variable a = variables.pick(0);
-                if(a.type == 0) temp.variables.push_back(a);
-                else
-                {
-                    vars::variable b = variables.pick();
-                    temp.variables.push_back(b);
-                }
-            }
-            /*
-            else if(temp.type == 3)//&&(vars.size() > 0))
-            {
-                //int j = (std::uniform_int_distribution<int>{0, ((int)vars.size()) - 1})(generator);
-                //int t = vars[j].type;
-
-                vars::variable a = variables.pick();
-                vars::variable b = variables.pick(a.type);
-                vars::variable c = variables.pick(a.type);
-
-                temp.variables.push_back(a);
-                temp.variables.push_back(b);
-                temp.variables.push_back(c);
-                //temp.value = a.name + "=" + b.name + " " + c.name;
-            }*/
-
+            temp.generate(variables);
             values.push_back(temp);        
         }
     }

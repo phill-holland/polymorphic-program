@@ -1,5 +1,7 @@
 #include "blocks.h"
 
+std::mt19937_64 polymorphic::blocks::block::generator(std::random_device{}());
+
 std::string polymorphic::blocks::block::declare(vars::variables &vars)
 {
     std::string result;
@@ -191,6 +193,58 @@ bool polymorphic::blocks::block::_loop(state &s)
     }
 
     return false;
+}
+
+void polymorphic::blocks::block::mutate(settings::settings configuration, vars::variables &vars)
+{
+    if(type == 0)
+    {        
+        if(variables.size() > 0)
+        {
+            type = 1;
+            
+            int k = (std::uniform_int_distribution<int>{configuration._loop.min, configuration._loop.max})(generator);
+            int j = (std::uniform_int_distribution<int>{0, 1})(generator);
+
+            if(j == 0)
+            {
+                vars::variable a = vars.pick(1);
+                if(a.type == 1)
+                {
+                    variables.clear();
+                    variables.push_back(a);
+                }
+            }
+
+            parameters.clear();
+            parameters.push_back(std::to_string(k));
+        }
+    }
+    else if (type == 1)
+    {
+        if(variables.size() > 0)
+        {
+            type = 0;
+
+            vars::variable a = vars.pick(1);
+            if(a.type == 1)
+            {
+                parameters.clear();
+
+                int k = (std::uniform_int_distribution<int>{0, 4})(generator);
+                std::string _operator;
+
+                if(k == 0) _operator = "<";
+                else if(k == 1) _operator += ">";
+                else if(k == 2) _operator += "<=";
+                else if(k == 3) _operator += ">=";
+                else _operator += "==";
+
+                parameters.push_back(_operator);
+                variables.push_back(a);
+            }
+        }
+    }
 }
 
 void polymorphic::blocks::block::copy(block &source, std::unordered_map<int, std::tuple<vars::variable,int>> map)

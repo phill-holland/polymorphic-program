@@ -39,7 +39,8 @@ namespace polymorphic
     public:
         void clear();
         void generate();  
-
+        void mutate();
+        
         std::string run();
         
         std::string output();

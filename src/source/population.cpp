@@ -34,12 +34,18 @@ bool polymorphic::population::go(int iterations)
 {
     bool result = false;
     int count = 0;
+
+    std::string beststr;
     float best = 0.0f;
     
+    const float rate = 1.0f;
+    const float mutation = (((float)size) / 100.0f) * rate;
+
     do
     {
         float total = 0.0f;
-
+        best = 0.0f;
+        
         for(int i = 0; i < size; ++i)
         {            
             schema s1 = *tournament(i);
@@ -48,21 +54,30 @@ bool polymorphic::population::go(int iterations)
             schema temp = s1.cross(s2);
 
             //std::cout << temp.output();
-            temp.run();
+
+            int t = (std::uniform_int_distribution<int>{0, size - 1})(generator);
+            if(((float)t) <= mutation) 
+            {
+                data[i]->mutate();
+            }
+
+            std::string output = temp.run();
 
             if(temp.score() > data[i]->score()) *data[i] = temp;
-
-            //int t = (std::uniform_int_distribution<int>{0, 100})(generator);
-            //if(t <= 10) data[i]->mutate();
+            //*data[i] = temp;
 
             total += temp.score();//data[i]->score();
-            if(temp.score() > best) best = temp.score();
+            if(temp.score() > best) 
+            {
+                best = temp.score();
+                beststr = output;
+            }
             if(temp.score() >= 0.9999f) result = true;
         }
 
         total /= size;
 
-        std::cout << "Iteration (" << count << ") Best=" << best << " Average=" << total << "\r\n";
+        std::cout << "Iteration (" << count << ") Best=" << best << " (" << beststr << ") Average=" << total << "\r\n";
 
         if((iterations > 0)&&(count > iterations)) result = true;
 
@@ -107,18 +122,28 @@ polymorphic::schema *polymorphic::population::tournament(int j)
     const int samples = 10;
     schema *temp = NULL;
 
+    int r2 = 0;
+    
+    do
+    {
+        r2 = (std::uniform_int_distribution<int>{0, (int(size)) - 1})(generator);
+    } while(r2 != j);
+
+    temp = data[r2];
+
     for(int i = 0; i < samples; ++i)
     {
-        int r1 = 0, r2 = 0;
+        int r1 = 0;
 
         do
         {
             r1 = (std::uniform_int_distribution<int>{0, (int(size)) - 1})(generator);
-            r2 = (std::uniform_int_distribution<int>{0, (int(size)) - 1})(generator);
-        } while((r1 != j)&&(r2 != j));
+        } while(r1 != j);
 
-        if(data[r1]->score() > data[r2]->score()) temp = data[r1];
-        else temp = data[r2];
+        if(data[r1]->score() > temp->score())
+        {
+            temp = data[r1];
+        }
     }
 
     return temp;

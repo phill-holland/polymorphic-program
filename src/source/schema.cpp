@@ -15,6 +15,7 @@ void polymorphic::schema::generate()
 
 void polymorphic::schema::mutate()
 {
+	data.mutate();
 }
 
 polymorphic::schema polymorphic::schema::cross(schema &value)
@@ -40,7 +41,41 @@ std::string polymorphic::schema::run()
 			int d = abs(l2 - l1);
 			if(d > 20) d = 20;
 			_score = ((d / 20.0f) * -1.0f) + 1.0f;
-			
+			/*
+			if(l2 > 0)
+			{
+				if(output[0] != 'h') _score *= (1.0f / ((float)l1));
+			}
+*/
+			for(int i = 0; i < l1; ++i)
+			{
+				float penalty = 0.80f;
+				if(i < l2)
+				{
+					if(output[i] == comp[i]) penalty = 1.0f;//_score *= (1.0f / ((float)l1));
+				}
+
+				_score *= penalty;
+			}
+
+			if(l2 > 0)
+			{
+				char previous = output[0];
+				int cc = 0;
+				for(int i = 1; i <l2; ++i)
+				{
+					if(output[i] == previous) ++cc;
+					else cc = 0;
+
+					previous = output[i];
+				}
+
+				if(cc >= 2)//l2 - 1)
+				{
+					 _score *= 0.20f;
+				}
+			}
+			/*
 			if(output.find(std::string("hel")) != std::string::npos) _score *= 0.25;
 			if(output.find(std::string("lo  ")) != std::string::npos) _score *= 0.25;
 			if(output.find(std::string("wor")) != std::string::npos) _score *= 0.25;
@@ -48,7 +83,8 @@ std::string polymorphic::schema::run()
 			
 			if(output.find(std::string("hello")) != std::string::npos) _score *= 0.30;
 			if(output.find(std::string("world!")) != std::string::npos) _score *= 0.30;
-
+*/
+/*
 			int c = 0;
 			int s = l1;
 			if(l2 < l1) s = l2;
@@ -59,6 +95,7 @@ std::string polymorphic::schema::run()
 
 			float tt = ((float)c)/((float)l1);
 			_score *= tt;
+			*/
 		//}
     	//_score = compare(output, "hello world!");
 		/*if(_score > 0.0f) 
