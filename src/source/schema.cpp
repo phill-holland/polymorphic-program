@@ -26,6 +26,177 @@ polymorphic::schema polymorphic::schema::cross(schema &value)
 
 std::string polymorphic::schema::run()
 {
+	auto occurances = [](std::string to_find, std::string value) 
+	{ 
+		int result = 0;
+		int idx = 0;
+
+        for(int i = 0; i < value.size(); ++i)
+        {
+			if(value[i] == to_find[idx]) 
+			{
+				++idx;
+				if(idx >= to_find.size())
+				{
+					idx = 0;
+					++result;
+				}
+			}
+			else idx = 0;
+        }
+
+        return result;
+	};
+
+	auto first_position = [](std::string to_find, std::string value) 
+	{ 
+		//int result = 0;
+		int idx = 0;
+
+        for(int i = 0; i < value.size(); ++i)
+        {
+			if(value[i] == to_find[idx]) 
+			{
+				++idx;
+				if(idx >= to_find.size())
+				{
+					return (int)(i - (to_find.size()-1));
+					//idx = 0;
+					//++result;
+				}
+			}
+			else idx = 0;
+        }
+
+        return -1;//result;
+	};
+
+	const int a_len = 3;
+	const std::string alphabet[] = { "he", "ll", "o ", "wo", "rl", "d!" }; // 5
+	const int position[] = { 0, 2, 4, 6, 8, 10 };
+
+	_score = 0.0f;
+	
+    std::string output = data.run();
+	if(output.size() > 0)
+	{		
+		std::string comp("hello ");// world!");
+		int l1 = comp.size();
+		int l2 = output.size();
+			
+		int d = abs(l2 - l1);
+		if(d > 20) d = 20;
+		_score = ((d / 20.0f) * -1.0f) + 1.0f;
+
+		float _local_score = 0.0f;
+
+		for(int i = 0; i < a_len; ++i)
+		{
+			int o = occurances(alphabet[i],output);
+			float v = 0.0f;
+			if(o > 0.0f) 1.0f /(float)o;
+			_local_score += v;	
+		}
+		if(_local_score > 0.0f)
+		{
+			_local_score /= ((float)a_len);
+			_score *= _local_score;
+		}
+
+		for(int i = 0; i < a_len; ++i)
+		{
+			int j = first_position(alphabet[i],output);
+			if(j != position[i]) _score *= 0.8f;
+		}
+
+		if(l2 > 0)
+		{
+			char previous = output[0];
+			int cc = 0;
+			for(int i = 1; i <l2; ++i)
+			{
+				if(output[i] == previous) ++cc;
+				else cc = 0;
+
+				previous = output[i];
+			}
+
+			if(cc >= 2)//l2 - 1)
+			{
+					_score *= 0.20f;
+			}
+		}
+		//std::string moo("hello world!");
+		//int b = first_position("ll", moo);
+		/*
+		std::string comp("hello world!");
+		int l1 = comp.size();
+		int l2 = output.size();
+			
+		int d = abs(l2 - l1);
+		if(d > 20) d = 20;
+		_score = ((d / 20.0f) * -1.0f) + 1.0f;
+		
+
+
+		for(int i = 0; i < l1; ++i)
+		{
+			float penalty = 0.80f;
+			if(i < l2)
+			{
+				if(output[i] == comp[i]) penalty = 1.0f;
+			}
+
+			_score *= penalty;
+		}
+
+		if(l2 > 0)
+		{
+			char previous = output[0];
+			int cc = 0;
+			for(int i = 1; i <l2; ++i)
+			{
+				if(output[i] == previous) ++cc;
+				else cc = 0;
+
+				previous = output[i];
+			}
+
+			if(cc >= 2)//l2 - 1)
+			{
+					_score *= 0.20f;
+			}
+		}
+		*/
+	}
+
+	return output;
+}
+
+std::string polymorphic::schema::run2()
+{
+	auto occurances = [](std::string to_find, std::string value) 
+	{ 
+		int result = 0;
+		int idx = 0;
+
+        for(int i = 0; i < value.size(); ++i)
+        {
+			if(value[i] == to_find[idx]) 
+			{
+				++idx;
+				if(idx >= to_find.size())
+				{
+					idx = 0;
+					++result;
+				}
+			}
+			else idx = 0;
+        }
+
+        return result;
+	};
+
 	_score = 0.0f;
 	
     std::string output = data.run();

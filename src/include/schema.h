@@ -52,6 +52,7 @@ namespace polymorphic
 
     public:
         std::string run();        
+        std::string run2();        
 
     protected:
         float compare(std::string left, std::string right);

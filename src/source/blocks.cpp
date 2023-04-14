@@ -262,5 +262,6 @@ void polymorphic::blocks::block::copy(block &source, std::unordered_map<int, std
         variables.push_back(temp);
     }
 
+    type = source.type;
     parameters = source.parameters;
 }

@@ -9,19 +9,19 @@ void run()
 {
     polymorphic::settings::settings settings;
 
-    settings._children.depth = 3;
-    settings._children.max = 5;
+    settings._children.depth = 3; // 3
+    settings._children.max = 5; // 5
 
-    settings._instructions.min = 1;
-    settings._instructions.max = 5;
+    settings._instructions.min = 1; //1
+    settings._instructions.max = 25; //15
 
-    settings._loop.min = 1;
-    settings._loop.max = 5;
+    settings._loop.min = 1; // 1
+    settings._loop.max = 5; // 5
 
-    polymorphic::population p(settings, 200);
+    polymorphic::population p(settings, 600); //200
 
     p.generate();
-    p.go(500);
+    p.go(1000); // 600
 
     polymorphic::schema best = p.best();
     

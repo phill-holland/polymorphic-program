@@ -1,784 +1,478 @@
 #include <iostream>
-
 using namespace std;
-int main() {
-  {
-    string b;
-    bool c;
-    int d;
-    int e;
-    int f;
-    int g;
-    int h;
-    int i;
-    int j;
-    int k;
-    int l;
-    int m;
-    int n;
-    int o;
-    int p;
-    int q;
-    int r;
-    int s;
-    int t;
-    int u;
-    int v;
-    int w;
-    int x;
-    int y;
-    int z;
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-    int f;
-    int g;
-    int h;
-    int i;
-    int j;
-    int k;
-    int l;
-    int m;
-    int n;
-    int o;
-    int p;
-    int q;
-    int r;
-    int s;
-    int t;
-    int u;
-    int v;
-    int w;
-    int x;
-    int y;
-    int z;
-    int a;
-    int bb;
-    int cc;
-    int dd;
-    int ee;
-    int ff;
-    int gg;
-    int hh;
-    int ii;
-    int jj;
-    int kk;
-    int ll;
-    int mm;
-    int nn;
-    int oo;
-    int pp;
-    int qq;
-    int rr;
-    int ss;
-    int tt;
-    int uu;
-    int vv;
-    int ww;
-    int xx;
-    int yy;
-    int zz;
-    int aa;
-    int bbb;
-    int ccc;
-    int ddd;
-    int eee;
-    int fff;
-    int ggg;
-    int hhh;
-    int iii;
-    int jjj;
-    int kkk;
-    int lll;
-    int mmm;
-    int nnn;
-    int ooo;
-    int ppp;
-    int qqq;
-    int rrr;
-    int sss;
-    int ttt;
-    int uuu;
-    int vvv;
-    int www;
-    int xxx;
-    int yyy;
-    b = "";
-    b = b;
-    b = "zvtmlpcx";
-    b = b;
-    c = true;
-    if (b > b) {
-      cout << b;
-      b = "jdtxeosvo";
-      c = true;
-      for (int d = 0; d < 11; ++d) {
-        for (int e = 0; e < 16; ++e) {
-          cout << e;
-          b = "zqzamciwu";
-          c = false;
-          e = d;
-          cout << d;
-          cout << e;
-          c = c;
-          e = d;
-          for (int f = 0; f < 20; ++f) {
-            d = f;
-            d = 26;
-            d = d;
-            b = "tyq";
-            cout << d;
-            d = d;
-            cout << e;
-            b = b;
-            cout << c;
-            if (e < d) {
-              d = f;
-              e = f;
-              c = c;
-              d = 53;
-              c = c;
-              c = c;
-              cout << c;
-              if (d >= e) {}
-              if (f >= e) {}
-              if (e <= d) {}
-            }
-            if (e == e) {
-              d = 27;
-              for (int g = 0; g < 17; ++g) {}
-              if (c < c) {}
-              for (int h = 0; h < 0; ++h) {}
-            }
-            for (int i = 0; i < 9; ++i) {}
-            if (d > f) {
-              cout << i;
-              c = false;
-            }
-          }
-          if (h >= d) {
-            b = b;
-            c = true;
-            cout << e;
-            c = c;
-            cout << b;
-            h = 6;
-            if (e > g) {
-              cout << e;
-              c = false;
-              cout << b;
-              h = h;
-              b = b;
-              c = false;
-              cout << g;
-              cout << e;
-              if (f < h) {}
-              for (int j = 0; j < 8; ++j) {}
-            }
-          }
-          if (i < i) {
-            b = b;
-            f = i;
-            i = 26;
-            g = 93;
-            f = 7;
-            cout << h;
-            cout << e;
-            i = j;
-            c = c;
-            b = "";
-            for (int k = 0; k < 16; ++k) {
-              cout << k;
-              b = "cdof";
-              cout << b;
-              cout << d;
-              cout << e;
-              b = "yuuxe";
-              j = 33;
-              e = 27;
-              cout << b;
-              cout << i;
-            }
-            for (int l = 0; l < 9; ++l) {
-              e = 43;
-              cout << e;
-              h = k;
-              e = g;
-              if (j < h) {}
-              for (int m = 0; m < 9; ++m) {}
-              for (int n = 0; n < 4; ++n) {}
-              for (int o = 0; o < 0; ++o) {}
-              if (f == d) {}
-            }
-            for (int p = 0; p < 5; ++p) {
-              cout << l;
-              d = o;
-              cout << f;
-              cout << o;
-              g = 33;
-              o = n;
-              h = 70;
-              if (k < h) {}
-              if (n > h) {}
-              if (l >= d) {}
-              if (n > d) {}
-              if (p < e) {}
-            }
-            for (int q = 0; q < 7; ++q) {
-              cout << e;
-              m = 8;
-              m = l;
-              cout << k;
-              for (int r = 0; r < 12; ++r) {}
-              if (q == j) {}
-              if (r < g) {}
-            }
-            if (l >= j) {
-              g = o;
-              n = 6;
-              n = 53;
-              n = n;
-              cout << l;
-              for (int s = 0; s < 3; ++s) {}
-              if (l >= e) {}
-            }
-          }
-        }
-        for (int t = 0; t < 0; ++t) {
-          d = 14;
-          if (c <= c) {
-            t = 7;
-            cout << q;
-            t = f;
-            cout << l;
-            cout << b;
-            g = t;
-            r = j;
-            cout << i;
-          }
-          if (k == m) {
-            g = i;
-            c = false;
-            l = p;
-            cout << b;
-            b = "kpbpta";
-            for (int u = 0; u < 2; ++u) {
-              s = 9;
-              cout << d;
-              l = e;
-              cout << m;
-              cout << t;
-              cout << o;
-              k = 83;
-              for (int v = 0; v < 15; ++v) {}
-              if (n >= o) {}
-              if (p < o) {}
-              if (u > d) {}
-              if (e >= n) {}
-            }
-            if (l == t) {
-              r = r;
-              cout << i;
-              if (l == n) {}
-              for (int w = 0; w < 15; ++w) {}
-              for (int x = 0; x < 0; ++x) {}
-            }
-            if (t <= j) {
-              cout << q;
-              o = v;
-              m = k;
-              h = 8;
-              cout << i;
-              if (c >= c) {}
-              if (j > s) {}
-            }
-            if (d == k) {
-              b = "";
-              cout << c;
-              v = x;
-              h = o;
-              cout << m;
-              r = v;
-              f = 47;
-              cout << h;
-              for (int y = 0; y < 10; ++y) {}
-              for (int z = 0; z < 16; ++z) {}
-            }
-          }
-          if (u == n) {
-            for (int a = 0; a < 19; ++a) {
-              cout << v;
-              cout << p;
-              if (d == y) {}
-              if (q == a) {}
-              if (v < o) {}
-            }
-            if (n > y) {
-              u = m;
-              for (int b = 0; b < 4; ++b) {}
-            }
-            if (x > d) {
-              u = 35;
-              o = g;
-              m = 19;
-              b = b;
-              j = z;
-              if (g >= o) {}
-              if (p < h) {}
-              if (t == g) {}
-              if (p < f) {}
-            }
-            if (g <= j) {
-              b = x;
-              n = 77;
-              n = j;
-              cout << l;
-              q = v;
-              w = 73;
-              if (g == v) {}
-              if (e > f) {}
-              for (int c = 0; c < 4; ++c) {}
-              if (o < v) {}
-            }
-            if (k == b) {
-              n = 90;
-              v = 48;
-              cout << c;
-              g = 67;
-              w = 40;
-              e = 90;
-              g = q;
-              a = 2;
-              cout << x;
-            }
-          }
-          for (int d = 0; d < 16; ++d) {
-            if (u >= e) {
-              cout << o;
-              cout << z;
-              cout << g;
-              b = b;
-              cout << n;
-              cout << x;
-              for (int e = 0; e < 20; ++e) {}
-              for (int f = 0; f < 5; ++f) {}
-              if (k > p) {}
-              if (q < e) {}
-            }
-            if (f == i) {
-              cout << e;
-              if (c == g) {}
-              for (int g = 0; g < 18; ++g) {}
-              for (int h = 0; h < 3; ++h) {}
-              for (int i = 0; i < 11; ++i) {}
-            }
-          }
-          if (k == u) {
-            cout << s;
-            k = h;
-            b = "jzjvgaptrs";
-            f = h;
-            b = b;
-            cout << f;
-            k = p;
-            cout << o;
-            if (d == u) {
-              y = e;
-              o = 69;
-              p = 63;
-              if (c > c) {}
-            }
-            if (i < h) {
-              cout << h;
-              s = h;
-              if (g <= u) {}
-              for (int j = 0; j < 9; ++j) {}
-              for (int k = 0; k < 11; ++k) {}
-              if (s == a) {}
-              for (int l = 0; l < 5; ++l) {}
-            }
-            if (b >= k) {
-              cout << y;
-              cout << c;
-              w = j;
-              cout << j;
-              l = f;
-              cout << i;
-              l = 26;
-              cout << e;
-              cout << b;
-              for (int m = 0; m < 9; ++m) {}
-              for (int n = 0; n < 3; ++n) {}
-              if (e == k) {}
-            }
-            for (int o = 0; o < 2; ++o) {
-              cout << y;
-              j = z;
-              if (j < n) {}
-              for (int p = 0; p < 9; ++p) {}
-              if (l <= v) {}
-            }
-          }
-        }
-        for (int q = 0; q < 19; ++q) {
-          p = n;
-          p = 65;
-          cout << m;
-          l = l;
-          l = i;
-          cout << j;
-          u = a;
-          e = 86;
-          cout << h;
-          o = 2;
-          if (i < e) {
-            k = 98;
-            l = q;
-            i = w;
-            u = 10;
-            if (h == f) {
-              cout << x;
-              i = 56;
-              z = 72;
-              for (int r = 0; r < 6; ++r) {}
-              for (int s = 0; s < 16; ++s) {}
-              if (l == n) {}
-              for (int t = 0; t < 13; ++t) {}
-            }
-            if (z >= d) {
-              d = s;
-              s = o;
-              cout << r;
-              cout << j;
-              c = b;
-              a = 82;
-              q = 97;
-              a = n;
-              for (int u = 0; u < 11; ++u) {}
-              if (p > e) {}
-              for (int v = 0; v < 20; ++v) {}
-              for (int w = 0; w < 14; ++w) {}
-            }
-          }
-          if (h > v) {
-            cout << v;
-            b = b;
-            j = v;
-            c = false;
-            s = w;
-            cout << r;
-            cout << v;
-            e = w;
-            g = p;
-            d = 15;
-            for (int x = 0; x < 9; ++x) {
-              e = b;
-              w = 75;
-              cout << j;
-              h = 58;
-            }
-            for (int y = 0; y < 15; ++y) {
-              j = i;
-              w = x;
-              q = 71;
-              for (int z = 0; z < 15; ++z) {}
-              if (b < b) {}
-              if (u >= o) {}
-              if (w <= y) {}
-              if (j >= d) {}
-            }
-            for (int a = 0; a < 4; ++a) {
-              p = 97;
-              for (int bb = 0; bb < 4; ++bb) {}
-              if (w == j) {}
-            }
-            if (c < c) {
-              d = y;
-              w = 59;
-              c = false;
-              n = 64;
-              s = a;
-              b = 55;
-              for (int cc = 0; cc < 8; ++cc) {}
-              for (int dd = 0; dd < 2; ++dd) {}
-              if (dd > s) {}
-              for (int ee = 0; ee < 5; ++ee) {}
-              for (int ff = 0; ff < 20; ++ff) {}
-            }
-          }
-          if (dd >= q) {
-            cout << q;
-            cout << v;
-            if (n > y) {
-              q = 61;
-              cout << dd;
-              cout << o;
-              cout << x;
-              f = i;
-              m = dd;
-              u = f;
-              if (dd <= o) {}
-              for (int gg = 0; gg < 14; ++gg) {}
-              if (k == y) {}
-              if (ee < s) {}
-            }
-            if (j >= o) {
-              cout << w;
-              cc = 98;
-              i = 1;
-              r = 13;
-              gg = 91;
-              cout << y;
-              for (int hh = 0; hh < 2; ++hh) {}
-            }
-            for (int ii = 0; ii < 11; ++ii) {
-              b = 55;
-            }
-            for (int jj = 0; jj < 19; ++jj) {
-              u = z;
-              cout << gg;
-              j = 19;
-              j = 78;
-              j = l;
-              d = cc;
-              m = j;
-              cout << l;
-              h = m;
-              for (int kk = 0; kk < 14; ++kk) {}
-              if (i >= c) {}
-            }
-            for (int ll = 0; ll < 2; ++ll) {
-              i = n;
-              j = 88;
-              n = 48;
-              cout << b;
-              ee = 12;
-              y = m;
-              if (i >= s) {}
-            }
-          }
-        }
-      }
-      if (l == t) {
-        k = 15;
-        g = 44;
-        jj = 22;
-        if (p >= kk) {
-          a = 63;
-          cout << e;
-          for (int mm = 0; mm < 18; ++mm) {
-            a = 41;
-            w = 37;
-            cout << e;
-            d = 63;
-            if (v <= s) {
-              ee = m;
-              cout << j;
-              a = 5;
-              kk = b;
-              if (q > e) {}
-              if (g < l) {}
-              if (ii <= jj) {}
-              for (int nn = 0; nn < 0; ++nn) {}
-              if (c <= c) {}
-            }
-          }
-          for (int oo = 0; oo < 16; ++oo) {
-            cc = v;
-            v = ee;
-          }
-        }
-      }
-      if (g < f) {
-        ii = z;
-        cout << ii;
-        for (int pp = 0; pp < 8; ++pp) {
-          ee = 61;
-          cout << g;
-          q = 66;
-          bb = 17;
-          f = l;
-          w = 45;
-          f = 0;
-          for (int qq = 0; qq < 7; ++qq) {
-            for (int rr = 0; rr < 8; ++rr) {
-              p = e;
-              g = 93;
-              for (int ss = 0; ss < 20; ++ss) {}
-              if (d > cc) {}
-              if (ss > i) {}
-            }
-            if (v >= g) {
-              s = 94;
-              cout << oo;
-              oo = 15;
-              cout << k;
-              cout << ll;
-              p = 34;
-              ii = v;
-              cout << n;
-              nn = 73;
-              l = 5;
-              if (pp < q) {}
-              for (int tt = 0; tt < 9; ++tt) {}
-              if (x < ll) {}
-              for (int uu = 0; uu < 20; ++uu) {}
-              for (int vv = 0; vv < 12; ++vv) {}
-            }
-            if (q <= l) {
-              cout << n;
-              mm = 64;
-              ee = rr;
-              cout << s;
-              r = t;
-              cout << k;
-              for (int ww = 0; ww < 19; ++ww) {}
-              for (int xx = 0; xx < 8; ++xx) {}
-              for (int yy = 0; yy < 14; ++yy) {}
-              for (int zz = 0; zz < 20; ++zz) {}
-              if (f <= f) {}
-            }
-          }
-          if (s == a) {
-            v = ll;
-            cout << ff;
-            bb = 8;
-            cout << v;
-            b = "dvp";
-            g = 62;
-            ff = x;
-            for (int aa = 0; aa < 7; ++aa) {
-              xx = 98;
-              h = 94;
-              yy = 100;
-              cout << v;
-            }
-            for (int bbb = 0; bbb < 7; ++bbb) {
-              cout << zz;
-              cout << cc;
-              if (a < c) {}
-              for (int ccc = 0; ccc < 0; ++ccc) {}
-              if (z <= b) {}
-            }
-            if (zz > xx) {
-              n = 88;
-              d = k;
-              a = 59;
-              cout << j;
-              vv = jj;
-              j = 75;
-              cout << l;
-              b = 31;
-              if (b > e) {}
-              for (int ddd = 0; ddd < 8; ++ddd) {}
-              for (int eee = 0; eee < 16; ++eee) {}
-            }
-          }
-        }
-        for (int fff = 0; fff < 10; ++fff) {
-          eee = 32;
-          for (int ggg = 0; ggg < 3; ++ggg) {
-            z = f;
-            cout << z;
-            if (mm >= mm) {
-              cout << n;
-              p = 79;
-              u = p;
-              for (int hhh = 0; hhh < 15; ++hhh) {}
-            }
-            for (int iii = 0; iii < 19; ++iii) {
-              for (int jjj = 0; jjj < 4; ++jjj) {}
-              if (jjj <= v) {}
-              if (kk >= u) {}
-              for (int kkk = 0; kkk < 20; ++kkk) {}
-              for (int lll = 0; lll < 8; ++lll) {}
-            }
-            for (int mmm = 0; mmm < 2; ++mmm) {
-              cout << n;
-              q = 7;
-              ww = ddd;
-              cout << ee;
-              b = b;
-              for (int nnn = 0; nnn < 15; ++nnn) {}
-              if (m <= a) {}
-            }
-          }
-          if (d > fff) {
-            ff = 88;
-            for (int ooo = 0; ooo < 6; ++ooo) {
-              k = 29;
-            }
-            for (int ppp = 0; ppp < 17; ++ppp) {
-              cout << i;
-              l = 100;
-              r = 25;
-              nnn = ccc;
-              n = 99;
-              bb = 66;
-              cout << jj;
-              cout << f;
-              qq = yy;
-              cout << c;
-              if (s == iii) {}
-              for (int qqq = 0; qqq < 0; ++qqq) {}
-              if (d >= tt) {}
-            }
-            if (ss == d) {
-              w = v;
-              qqq = h;
-              cout << ppp;
-              cout << k;
-              w = 74;
-              ddd = 8;
-              cout << oo;
-              r = ll;
-              if (y <= r) {}
-              for (int rrr = 0; rrr < 2; ++rrr) {}
-              for (int sss = 0; sss < 16; ++sss) {}
-              if (i == bbb) {}
-            }
-            for (int ttt = 0; ttt < 18; ++ttt) {
-              i = u;
-              cout << nn;
-              nn = 80;
-              p = p;
-              cout << ff;
-              cout << aa;
-              cout << d;
-              fff = 29;
-              cout << m;
-              x = 69;
-            }
-          }
-          if (bb < uu) {
-            cout << h;
-            cout << kkk;
-            rr = 36;
-            cout << x;
-            ii = 86;
-            h = 92;
-            cout << nn;
-            for (int uuu = 0; uuu < 0; ++uuu) {
-              for (int vvv = 0; vvv < 2; ++vvv) {}
-              for (int www = 0; www < 0; ++www) {}
-              if (a < ff) {}
-              if (kk < lll) {}
-              if (bbb == oo) {}
-            }
-            for (int xxx = 0; xxx < 4; ++xxx) {
-              cout << j;
-              cout << z;
-              cout << k;
-              z = ff;
-              for (int yyy = 0; yyy < 17; ++yyy) {}
-              if (ll >= uu) {}
-            }
-          }
-        }
-      }
-    }
-  }
-  return 0;
+ int main() {{
+string b = "";
+int c = 0;
+int d = 0;
+string e = "";
+string f = "";
+int g = 0;
+int h = 0;
+string i = "";
+int j = 0;
+string k = "";
+cout << b;
+cout << b;
+c=c;
+c=c;
+b=b;
+cout << b;
+c=13;
+cout << b;
+b=b;
+b=b;
+b=b;
+c=10;
+cout << b;
+c=c;
+c=c;
+cout << b;
+cout << f;
+c=c;
+b="he";
+c=c;
+cout << b;
+if (h>=h){
+h=89;
+h=20;
+cout << i;
+i="ll";
+cout << i;
+if (h==h){
+}
+for (h;h<1;++h){
+}
+}
+for (c;c<6;++c){
+cout << b;
+c=58;
+cout << b;
+c=c;
+cout << b;
+c=c;
+c=47;
+b=b;
+c=96;
+c=c;
+c=c;
+cout << b;
+cout << b;
+cout << i;
+cout << b;
+b="wo";
+cout << b;
+b="he";
+c=29;
+b="ll";
+c=c;
+if (b<b){
+c=c;
+b="ll";
+b="he";
+cout << b;
+cout << b;
+b="wo";
+b="d!";
+b="rl";
+b="d!";
+c=c;
+c=50;
+if (b<=b){
+b="rl";
+cout << b;
+c=72;
+b=b;
+c=c;
+cout << b;
+cout << b;
+b="ll";
+cout << b;
+b="wo";
+cout << b;
+b="ll";
+b=b;
+cout << b;
+c=20;
+cout << b;
+b=b;
+c=30;
+cout << b;
+c=c;
+c=27;
+b=b;
+if (c<h){
+}
+for (c;c<4;++c){
+}
+if (c<=c){
+}
+for (c;c<3;++c){
+}
+}
+if (c<=c){
+cout << b;
+cout << b;
+c=c;
+b="wo";
+cout << b;
+cout << b;
+cout << b;
+b=b;
+cout << b;
+cout << b;
+cout << b;
+b="he";
+b="ll";
+c=c;
+if (b<b){
+}
+}
+}
+if (c>c){
+b=b;
+b=b;
+d=40;
+cout << b;
+cout << b;
+b="wo";
+b="d!";
+cout << b;
+b="wo";
+c=90;
+c=42;
+b="rl";
+cout << b;
+b="o ";
+b=b;
+cout << b;
+c=80;
+cout << b;
+b=b;
+cout << b;
+for (c;c<1;++c){
+c=33;
+cout << b;
+cout << b;
+c=c;
+c=c;
+c=3;
+b=b;
+b="d!";
+b="ll";
+c=23;
+cout << b;
+b=b;
+b=b;
+b="wo";
+for (c;c<5;++c){
+}
+if (b<=b){
+}
+for (c;c<2;++c){
+}
+for (c;c<1;++c){
+}
+if (c>d){
+}
+}
+if (c>=c){
+c=89;
+c=20;
+cout << b;
+b="ll";
+cout << b;
+if (c==c){
+}
+for (c;c<1;++c){
+}
+}
+for (c;c<2;++c){
+c=27;
+c=28;
+b="o ";
+cout << b;
+b="d!";
+b=b;
+b=b;
+b=b;
+b="d!";
+for (c;c<5;++c){
+}
+for (c;c<1;++c){
+}
+}
+}
+if (b<=b){
+b="ll";
+b=b;
+cout << b;
+b="d!";
+cout << b;
+for (c;c<3;++c){
+c=38;
+cout << b;
+for (c;c<3;++c){
+}
+for (c;c<5;++c){
+}
+for (c;c<2;++c){
+}
+if (c<=g){
+}
+if (c<c){
+}
+}
+}
+for (c;c<1;++c){
+c=c;
+c=c;
+cout << b;
+c=c;
+c=c;
+cout << b;
+b="wo";
+b=b;
+c=94;
+b=b;
+c=98;
+b="rl";
+cout << b;
+b="o ";
+b=b;
+c=c;
+b=b;
+b=b;
+cout << b;
+c=c;
+if (c==c){
+c=22;
+b="ll";
+cout << b;
+cout << b;
+cout << b;
+c=c;
+c=35;
+}
+if (c>=c){
+b="wo";
+b=b;
+if (b>b){
+}
+for (c;c<3;++c){
+}
+if (b<=b){
+}
+if (b==b){
+}
+}
+for (c;c<4;++c){
+b="rl";
+c=c;
+b=b;
+b="ll";
+c=c;
+cout << b;
+b=b;
+b="wo";
+if (b>b){
+}
+}
+for (c;c<1;++c){
+b=b;
+cout << b;
+b="he";
+c=c;
+c=c;
+c=c;
+c=0;
+cout << b;
+c=c;
+c=48;
+cout << b;
+cout << b;
+c=c;
+b="ll";
+b="wo";
+c=59;
+b=b;
+cout << b;
+if (c<=c){
+}
+for (c;c<4;++c){
+}
+if (c==c){
+}
+}
+}
+if (c>c){
+cout << b;
+c=20;
+cout << b;
+b=b;
+cout << b;
+cout << i;
+b="o ";
+if (c<=c){
+cout << b;
+cout << b;
+b="wo";
+cout << b;
+b=b;
+b="d!";
+b="o ";
+cout << b;
+b="he";
+c=51;
+c=9;
+c=c;
+c=20;
+b="rl";
+b=b;
+c=52;
+cout << b;
+b="d!";
+c=c;
+c=c;
+c=c;
+cout << b;
+cout << b;
+c=c;
+b=b;
+if (c<=c){
+}
+if (c<=c){
+}
+if (c<c){
+}
+for (c;c<1;++c){
+}
+}
+for (c;c<3;++c){
+c=c;
+b=b;
+cout << b;
+cout << b;
+b="ll";
+cout << b;
+c=c;
+b="d!";
+cout << b;
+cout << b;
+c=17;
+b=b;
+for (c;c<5;++c){
+}
+for (c;c<5;++c){
+}
+for (c;c<1;++c){
+}
+if (b>=b){
+}
+for (c;c<1;++c){
+}
+}
+if (c>c){
+b=b;
+c=31;
+cout << b;
+cout << b;
+c=79;
+c=61;
+b=b;
+c=86;
+cout << b;
+c=c;
+b=b;
+c=c;
+b="ll";
+b=b;
+b="d!";
+b="wo";
+c=c;
+c=39;
+c=c;
+c=32;
+b="rl";
+cout << b;
+if (e==e){
+d=d;
+e=e;
+d=46;
+d=d;
+e=e;
+e="wo";
+e="wo";
+cout << e;
+cout << e;
+cout << e;
+e=e;
+e="wo";
+e=e;
+cout << e;
+}
+}
+for (c;c<4;++c){
+c=25;
+cout << b;
+b="he";
+c=c;
+b="wo";
+cout << b;
+b=b;
+b=b;
+cout << b;
+b=b;
+cout << b;
+c=c;
+c=89;
+cout << b;
+cout << b;
+c=c;
+cout << b;
+}
+if (c<c){
+cout << b;
+b="rl";
+cout << b;
+cout << b;
+cout << b;
+cout << b;
+c=30;
+b="ll";
+c=43;
+c=74;
+b=b;
+cout << b;
+b="wo";
+b="ll";
+c=c;
+b=b;
+b=b;
+b="wo";
+c=c;
+c=c;
+for (c;c<5;++c){
+}
+if (c>=c){
+}
+}
+}
+}
+for (j;j<2;++j){
+j=27;
+j=28;
+k="o ";
+cout << k;
+k="d!";
+k=k;
+k=k;
+k=k;
+k="d!";
+for (j;j<5;++j){
+}
+for (j;j<1;++j){
+}
+}
+}
+return 0;
 }

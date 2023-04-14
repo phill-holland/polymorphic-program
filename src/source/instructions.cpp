@@ -124,13 +124,14 @@ void polymorphic::instrs::instruction::generate(vars::variables &variables, int 
             std::string alphabet[] = { "h", "e", "l", "o ", "w", "r", "d", "!", " " }; // 5
             std::string s;
             
-            int k = (std::uniform_int_distribution<int>{0, 5})(generator);                    
+            //int k = (std::uniform_int_distribution<int>{0, 5})(generator);                    
+            int k = 1;
             for(int i = 0; i < k; ++i)
             {
                 int y = (std::uniform_int_distribution<int>{0, 8})(generator);
                 s += alphabet[y];
             }
-            */
+  */          
             //s = alphabet[k];
 
             /*

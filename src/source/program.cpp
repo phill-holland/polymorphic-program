@@ -142,7 +142,7 @@ std::string polymorphic::program::run(state &s, int iterations)
     else if(block.type == 1)
     {
         int counter = 0;
-        while((block._loop(s))&&(counter < 2500))
+        while((block._loop(s))&&(counter < 1500)) // 2500
         {
             for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
             {
@@ -197,6 +197,13 @@ polymorphic::program polymorphic::program::cross(program &a, program &b, int c1,
 
     result.copy(&a, p1[a1], p2[b1], map);
 
+/*
+    std::cout << a.output();
+    std::cout << "\r\nHERE\r\n";
+    std::cout << b.output();
+std::cout << "\r\nHEREYY\r\n";
+    std::cout << result.output();
+*/
     return result;
 }
 
