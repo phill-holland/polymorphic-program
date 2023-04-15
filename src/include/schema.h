@@ -1,5 +1,6 @@
 #include "program.h"
 #include "settings.h"
+#include "score.h"
 #include <string>
 #include <random>
 #include <vector>
@@ -15,7 +16,8 @@ namespace polymorphic
 
         program data;
 
-        float _score;
+    public:
+        score scores;
 
     public:
         schema() { reset(); }
@@ -24,7 +26,6 @@ namespace polymorphic
             reset();
             data = program(settings);
         }
-
 
         ~schema() { }
 
@@ -39,8 +40,6 @@ namespace polymorphic
         void clear() { data.clear(); }
         void reset();
         
-        float score() { return _score; }
-
         void generate();
 
     public:
@@ -51,11 +50,7 @@ namespace polymorphic
         void mutate();
 
     public:
-        std::string run();        
-        std::string run2();        
-
-    protected:
-        float compare(std::string left, std::string right);
+        std::string run();           
     };
 };
 

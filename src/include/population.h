@@ -1,5 +1,6 @@
 #include "schema.h"
 #include "settings.h"
+#include "kdtree.h"
 #include <random>
 
 #ifndef _POLYMORPHIC_POPULATION
@@ -9,7 +10,10 @@ namespace polymorphic
 {
     class population
     {
+        static const int minimum = 100, maximum = 10000;
         static std::mt19937_64 generator;
+
+        dominance::kdtree::kdtree *approximation;
 
         schema **data;
         int size;
@@ -33,9 +37,13 @@ namespace polymorphic
 
     protected:
         schema *tournament(int j);
+        bool set(int index, schema &source);
 
     protected:
-        void makeNull() { data = NULL; }
+        int getch();
+        
+    protected:
+        void makeNull();
         void cleanup();
     };
 };

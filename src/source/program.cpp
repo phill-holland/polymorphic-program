@@ -142,7 +142,7 @@ std::string polymorphic::program::run(state &s, int iterations)
     else if(block.type == 1)
     {
         int counter = 0;
-        while((block._loop(s))&&(counter < 1500)) // 2500
+        while((block._loop(s))&&(counter < 500)) //1500, 2500
         {
             for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
             {

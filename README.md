@@ -134,7 +134,7 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Include top level input parameters to limit growth size of programs (DONE)
 
-- Need a find unused variable function for each program (and remove)
+- ***Need a find unused variable function for each program (and remove) THIS NEXT!! (get used variables, then remap)
 
 - Fix tabbed output (DON'T CARE ABOUT ANYMORE)
 
@@ -144,7 +144,7 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - Edit random string generator to only use "hello world" characters as grammar (DONE)
 
-- Add code mutation function
+- Add code mutation function (DONE)
 
 - Suppress output of anything that's not a string (i.e. integers/booleans) (DONEISH)
 

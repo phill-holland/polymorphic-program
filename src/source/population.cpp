@@ -1,5 +1,6 @@
 #include "population.h"
 #include <iostream>
+#include <fcntl.h>
 
 std::mt19937_64 polymorphic::population::generator(std::random_device{}());
 
@@ -7,6 +8,10 @@ void polymorphic::population::reset(settings::settings config, int size)
 {
     init = false; cleanup();
     this->size = size;
+
+	approximation = new dominance::kdtree::kdtree(polymorphic::score::length, 10000);
+	if (approximation == NULL) return;
+	if (!approximation->initalised()) return;
 
     data = new polymorphic::schema*[size];
     if(data == NULL) return;
@@ -62,17 +67,19 @@ bool polymorphic::population::go(int iterations)
             }
 
             std::string output = temp.run();
+            float sum = temp.scores.sum();
 
-            if(temp.score() > data[i]->score()) *data[i] = temp;
-            //*data[i] = temp;
-
-            total += temp.score();//data[i]->score();
-            if(temp.score() > best) 
-            {
-                best = temp.score();
-                beststr = output;
+            if(set(i, temp))
+            {                
+                if(sum > best)
+                {
+                    best = sum;
+                    beststr = output;
+                }
+                if(sum >= 0.9999f) result = true;                
             }
-            if(temp.score() >= 0.9999f) result = true;
+
+            total += sum;
         }
 
         total /= size;
@@ -80,6 +87,9 @@ bool polymorphic::population::go(int iterations)
         std::cout << "Iteration (" << count << ") Best=" << best << " (" << beststr << ") Average=" << total << "\r\n";
 
         if((iterations > 0)&&(count > iterations)) result = true;
+
+        int c = getch();
+        if(c == 27) result = true;
 
         ++count;
 
@@ -95,11 +105,12 @@ polymorphic::schema polymorphic::population::best()
 
     for(int i = 0; i < size; ++i)
     {
-        if(data[i]->score() > s)
+        if(data[i]->scores.sum() > s)
         {
             j = i;
-            s = data[i]->score();
+            s = data[i]->scores.sum();
         }
+
     }
 
     return *data[j];
@@ -120,33 +131,129 @@ std::string polymorphic::population::output()
 polymorphic::schema *polymorphic::population::tournament(int j)
 {
     const int samples = 10;
-    schema *temp = NULL;
 
-    int r2 = 0;
-    
-    do
+	std::uniform_int_distribution<int> rand{ 0, size - 1 };
+
+    const int dimensions = polymorphic::score::length;
+
+	dominance::kdtree::kdpoint temp1(dimensions), temp2(dimensions);
+	dominance::kdtree::kdpoint origin(dimensions);
+
+	temp1.set(0L);
+	temp2.set(0L);
+	origin.set(0L);
+
+    long competition;
+
+    long best = rand(generator);
+	float score = data[best]->scores.sum();
+
+	for (int i = 0; i < samples; ++i)
+	{
+		competition = rand(generator);
+
+		for(int i = 0; i < dimensions; ++i)
+		{
+			float score1 = data[best]->scores.scores[i];
+			score1 = (score1 * ((float)maximum - minimum)) + minimum;
+
+			temp1.set((long)score1, i);
+
+			float score2 = data[competition]->scores.scores[i];
+			score2 = (score2 * ((float)maximum - minimum)) + minimum;
+
+			temp2.set((long)score2, i);
+		}
+		
+		float t2 = data[competition]->scores.sum();
+
+		if(approximation->exists(temp1))
+		{
+			if(approximation->inside(temp1, &origin, &temp2))
+			{
+				score = t2;
+			}
+			else
+			{
+				best = competition;
+				score = t2;
+			}
+		}
+        else if(t2 > score)
+		{
+			best = competition;
+			score = t2;
+		}
+	}
+
+	return data[best];
+}
+
+bool polymorphic::population::set(int index, schema &source)
+{
+    std::uniform_real_distribution<float> dist{ 0.0f, 1.0f };
+    bool result = false;
+
+	//core::threading::semaphore lock(token);
+	
+	//long offspring = worst(); // input from parameters
+	//if(source.score < schemas[offspring]->score) return offspring;
+
+    const int dimensions = polymorphic::score::length;
+
+	dominance::kdtree::kdpoint temp1(dimensions), temp2(dimensions);
+
+	temp1.set(0L);
+	temp2.set(0L);
+
+	for(long i = 0L; i < dimensions; ++i)
+	{
+		float score1 = data[index]->scores.scores[i];
+		score1 = (score1 * ((float)maximum - minimum)) + minimum;
+
+		temp1.set((long)score1, i);
+
+		float score2 = source.scores.scores[i];
+		score2 = (score2 * ((float)maximum - minimum)) + minimum;
+
+		temp2.set((long)score2, i);
+	}
+
+	if(!temp1.issame(minimum)) 
+	{
+		if(approximation->exists(temp2))
+		{
+			approximation->remove(temp1);
+		}
+	}
+	if(!temp2.issame(minimum)) 
     {
-        r2 = (std::uniform_int_distribution<int>{0, (int(size)) - 1})(generator);
-    } while(r2 != j);
-
-    temp = data[r2];
-
-    for(int i = 0; i < samples; ++i)
-    {
-        int r1 = 0;
-
-        do
-        {
-            r1 = (std::uniform_int_distribution<int>{0, (int(size)) - 1})(generator);
-        } while(r1 != j);
-
-        if(data[r1]->score() > temp->score())
-        {
-            temp = data[r1];
-        }
+        approximation->insert(&temp2);
+        *data[index] = source;
+        result = true;
     }
 
-    return temp;
+    //*data[index] = source;
+
+	return result;
+}
+
+int polymorphic::population::getch() 
+{ 
+    int ch; 
+
+    int flags = fcntl(0, F_GETFL, 0);
+    flags |= O_NONBLOCK;
+    fcntl(0, F_SETFL, flags);    
+    ch = getchar(); 
+
+    return ch; 
+} 
+
+void polymorphic::population::makeNull() 
+{ 
+    approximation = NULL;
+    data = NULL; 
 }
 
 void polymorphic::population::cleanup() 
@@ -160,4 +267,6 @@ void polymorphic::population::cleanup()
 
         delete[] data;
     }
+
+    if(approximation != NULL) delete approximation;    
 }
