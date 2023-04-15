@@ -52,7 +52,7 @@ namespace polymorphic
         static std::vector<program*> deconstruct(program &a);        
 
     protected:
-        std::string run(state &s, int iterations);
+        std::string run(state &s);
 
     protected:
         void copy(program *source, program *until, 

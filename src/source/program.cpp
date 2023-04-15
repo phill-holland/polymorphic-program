@@ -106,16 +106,15 @@ std::string polymorphic::program::run()
 
     for(it = children.begin(); it < children.end(); it++)
     {                    
-        result += it->run(s,0);
+        result += it->run(s);
     }
 
     return result;
 }
 
-std::string polymorphic::program::run(state &s, int iterations)
+std::string polymorphic::program::run(state &s)
 {    
     std::string result; 
-    if(iterations > 10000) return result;
 
     if(block.type == 0)
     {
@@ -131,7 +130,7 @@ std::string polymorphic::program::run(state &s, int iterations)
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s, iterations + 1);
+                result += it->run(s);
             }
         }
     }
@@ -150,10 +149,15 @@ std::string polymorphic::program::run(state &s, int iterations)
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s, iterations + 1);
+                result += it->run(s);
             }
             ++counter;
         };
+
+        if(counter >= 500)
+        {
+            std::cout << "max counter in run!\r\n";
+        }
     }
 
     return result;

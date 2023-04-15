@@ -50,6 +50,15 @@ bool polymorphic::population::go(int iterations)
     {
         float total = 0.0f;
         best = 0.0f;
+
+        for(int i = 0; i < size; ++i)
+        {            
+            int t = (std::uniform_int_distribution<int>{0, size - 1})(generator);
+            if(((float)t) <= mutation) 
+            {
+                data[i]->mutate();
+            }
+        }
         
         for(int i = 0; i < size; ++i)
         {            
@@ -59,12 +68,6 @@ bool polymorphic::population::go(int iterations)
             schema temp = s1.cross(s2);
 
             //std::cout << temp.output();
-
-            int t = (std::uniform_int_distribution<int>{0, size - 1})(generator);
-            if(((float)t) <= mutation) 
-            {
-                data[i]->mutate();
-            }
 
             std::string output = temp.run();
             float sum = temp.scores.sum();
