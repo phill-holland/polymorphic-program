@@ -25,7 +25,6 @@ void run()
 
     polymorphic::schema best = p.best();
     
-    //std::cout << "Score " << best.score() << "\r\n";
     std::cout << best.output();
     std::cout << best.run();
 }

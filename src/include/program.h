@@ -43,11 +43,13 @@ namespace polymorphic
         
         std::string run();
         
+        polymorphic::program unused();
+        
         std::string output();
 
     public:
         static program cross(program &a, program &b, int c1 = -1, int c2 = -1);
-        static std::vector<program*> deconstruct(program &a);
+        static std::vector<program*> deconstruct(program &a);        
 
     protected:
         std::string run(state &s, int iterations);
@@ -58,7 +60,7 @@ namespace polymorphic
                   std::unordered_map<int, std::tuple<vars::variable,int>> &result);
         void copy(program *source, std::unordered_map<int, std::tuple<vars::variable,int>> &result);
         std::unordered_map<int, std::tuple<vars::variable,int>> unique(std::unordered_map<int, std::tuple<vars::variable,int>> &result, vars::variables &input);
-
+        
     protected: 
         std::string get(int depth);
         void generate(vars::variables &v, int depth);

@@ -68,17 +68,23 @@ std::string polymorphic::instrs::instruction::run(state &s)
 }
 
 void polymorphic::instrs::instruction::mutate(vars::variables &variables)
-{
-    generate(variables, type);
+{    
+    generate(variables, type);    
 }
 
 void polymorphic::instrs::instruction::generate(vars::variables &variables)
 {
-    int type = (std::uniform_int_distribution<int>{0, 2})(generator); 
-    generate(variables, type);
+    int type = 0;
+    int counter = 0;
+
+    do
+    { 
+        type = (std::uniform_int_distribution<int>{0, 2})(generator); 
+        ++counter; 
+    }while((!generate(variables, type))&&(counter<20));
 }
 
-void polymorphic::instrs::instruction::generate(vars::variables &variables, int type)
+bool polymorphic::instrs::instruction::generate(vars::variables &variables, int type)
 {
     instruction temp;
     temp.type = type;
@@ -166,14 +172,17 @@ void polymorphic::instrs::instruction::generate(vars::variables &variables, int 
     {
         vars::variable a = variables.pick(0);
         if(a.type == 0) temp.variables.push_back(a);
-        else
+        else return false;
+        /*else
         {
             vars::variable b = variables.pick();
             temp.variables.push_back(b);
-        }
+        }*/
     }
 
     *this = temp;       
+
+    return true;
 }
 
 std::mt19937_64 polymorphic::instrs::instructions::generator(std::random_device{}());
@@ -183,7 +192,17 @@ void polymorphic::instrs::instructions::mutate(vars::variables &variables)
     if(values.size() > 0)
     {
         int j = (std::uniform_int_distribution<int>{0, (int)(values.size() - 1)})(generator);
-        values[j].mutate(variables);
+        int t = (std::uniform_int_distribution<int>{0, 1})(generator);
+
+        if(t == 0) values[j].mutate(variables);
+        else values.erase(values.begin() + j);
+    }
+    else
+    {
+        instruction temp;
+
+        temp.generate(variables);
+        values.push_back(temp);        
     }
 }
 

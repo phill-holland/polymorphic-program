@@ -50,9 +50,6 @@ void polymorphic::program::generate(vars::variables &v, int depth)
 
         if((temp.block.type == 0)&&(!v.isempty()))
         {
-            //vars::variable a = v.pick();
-            //vars::variable b = v.pick(a.type);
-
             vars::variable a;
             vars::variable b;
 
@@ -82,7 +79,6 @@ void polymorphic::program::generate(vars::variables &v, int depth)
         {
             vars::variable a = v.pick(1);
             if(a.type != 1) a = v.get(1);
-            //vars::variable a = v.local(1);
             
             int k = (std::uniform_int_distribution<int>{configuration._loop.min, configuration._loop.max})(generator);
 
@@ -163,6 +159,18 @@ std::string polymorphic::program::run(state &s, int iterations)
     return result;
 }
 
+polymorphic::program polymorphic::program::unused()
+{
+    program result;
+
+    std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> map;
+    this->unique(map, result.variables);
+
+    result.copy(this, map);
+
+    return result;
+}
+
 std::string polymorphic::program::output()
 {
     std::string result;
@@ -197,14 +205,7 @@ polymorphic::program polymorphic::program::cross(program &a, program &b, int c1,
 
     result.copy(&a, p1[a1], p2[b1], map);
 
-/*
-    std::cout << a.output();
-    std::cout << "\r\nHERE\r\n";
-    std::cout << b.output();
-std::cout << "\r\nHEREYY\r\n";
-    std::cout << result.output();
-*/
-    return result;
+    return result.unused();
 }
 
 std::vector<polymorphic::program*> polymorphic::program::deconstruct(polymorphic::program &a)
@@ -275,8 +276,6 @@ std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> polymorphic
 {
     std::unordered_map<int, vars::variable> map;
     
-    std::vector<polymorphic::vars::variable> v_it;
-
     for(std::vector<polymorphic::vars::variable>::iterator it = block.variables.begin(); it < block.variables.end(); it++)
     {
         vars::variable v = *it;
@@ -310,6 +309,7 @@ std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> polymorphic
 
     return result;
 }
+
 
 std::string polymorphic::program::get(int depth)
 {    

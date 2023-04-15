@@ -136,6 +136,10 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 - ***Need a find unused variable function for each program (and remove) THIS NEXT!! (get used variables, then remap)
 
+- Unused variables part 2, remove variables and instructions that are assigned to, but never used
+
+- Mutate blocks update, ideally move blocks around and delete some randomly
+
 - Fix tabbed output (DON'T CARE ABOUT ANYMORE)
 
 - Need to parse/run output code inline (rather than running an external compiler and running on the OS) (ADDED, NOT TESTED)

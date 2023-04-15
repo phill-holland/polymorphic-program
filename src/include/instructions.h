@@ -28,7 +28,7 @@ namespace polymorphic
             void mutate(vars::variables &variables);
 
             void generate(vars::variables &variables);
-            void generate(vars::variables &variables, int type);            
+            bool generate(vars::variables &variables, int type);            
         };
       
        class instructions
