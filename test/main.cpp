@@ -31,9 +31,9 @@ TEST(BasicProgramExecutionWithStringOutput, BasicAssertions)
     p.instructions.values.push_back(i1);
     p.instructions.values.push_back(i2);
 
-    std::string result = p.run();
+    std::tuple<std::string, bool> result = p.run();
 
-    EXPECT_TRUE(expected == result);
+    EXPECT_TRUE(expected == std::get<0>(result));
 }
 
 TEST(BasicProgramExecutionAssignmentWithStringOutput, BasicAssertions)
@@ -74,9 +74,9 @@ TEST(BasicProgramExecutionAssignmentWithStringOutput, BasicAssertions)
     p.instructions.values.push_back(i2);
     p.instructions.values.push_back(i3);
 
-    std::string result = p.run();
+    std::tuple<std::string, bool> result = p.run();
 
-    EXPECT_TRUE(expected == result);
+    EXPECT_TRUE(expected == std::get<0>(result));
 }
 
 
@@ -146,9 +146,9 @@ TEST(BasicProgramExecutionIfStatementWithStringOutput, BasicAssertions)
 
     main.children.push_back(_if);
 
-    std::string result = main.run();
+    std::tuple<std::string, bool> result = main.run();
 
-    EXPECT_TRUE(expected == result);
+    EXPECT_TRUE(expected == std::get<0>(result));
 }
 
 TEST(BasicProgramExecutionForLoopWithStringOutput, BasicAssertions)
@@ -195,9 +195,9 @@ TEST(BasicProgramExecutionForLoopWithStringOutput, BasicAssertions)
 
     main.children.push_back(_for);
 
-    std::string result = main.run();
+    std::tuple<std::string, bool> result = main.run();
 
-    EXPECT_TRUE(expected == result);
+    EXPECT_TRUE(expected == std::get<0>(result));
 }
 
 TEST(BasicProgramExecutionForLoopWithIfAndStringOutput, BasicAssertions)
@@ -265,9 +265,9 @@ TEST(BasicProgramExecutionForLoopWithIfAndStringOutput, BasicAssertions)
 
     main.children.push_back(_for);
 
-    std::string result = main.run();
+    std::tuple<std::string, bool> result = main.run();
 
-    EXPECT_TRUE(expected == result);
+    EXPECT_TRUE(expected == std::get<0>(result));
 }
 
 TEST(BasicProgramBasicCross, BasicAssertions)
@@ -278,13 +278,8 @@ using namespace std;
 string b = "";
 int c = 0;
 int d = 0;
-string e = "";
-int f = 0;
-int g = 0;
-b="ha!";
-c=5;
-if (g>=f){
-cout << e;
+if (d>=c){
+cout << b;
 }
 }
 return 0;
@@ -344,7 +339,7 @@ return 0;
     polymorphic::program output = polymorphic::program::cross(main, main, 1, 2);
 
     std::string result = output.output();
-
+    
     expected.erase(std::remove(expected.begin(), expected.end(), '\n'), expected.cend());
     result.erase(std::remove(result.begin(), result.end(), '\n'), result.cend());
 
@@ -359,10 +354,6 @@ using namespace std;
 string b = "";
 int c = 0;
 int d = 0;
-int e = 0;
-string f = "";
-f="ha!";
-e=5;
 if (d>=c){
 cout << b;
 }

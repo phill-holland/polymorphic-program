@@ -91,7 +91,7 @@ void polymorphic::program::generate(vars::variables &v, int depth)
     }
 }
 
-std::string polymorphic::program::run()
+std::tuple<std::string, bool> polymorphic::program::run()
 {
     state s(variables);
     std::string result;
@@ -103,16 +103,17 @@ std::string polymorphic::program::run()
     }
     
     std::vector<polymorphic::program>::iterator it;
+    bool overrun = false;
 
     for(it = children.begin(); it < children.end(); it++)
     {                    
-        result += it->run(s);
+        result += it->run(s, overrun);
     }
 
-    return result;
+    return std::tuple<std::string, bool>(result, overrun);
 }
 
-std::string polymorphic::program::run(state &s)
+std::string polymorphic::program::run(state &s, bool &overrun)
 {    
     std::string result; 
 
@@ -130,14 +131,14 @@ std::string polymorphic::program::run(state &s)
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s);
+                result += it->run(s, overrun);
             }
         }
     }
     else if(block.type == 1)
     {
         int counter = 0;
-        while((block._loop(s))&&(counter < 500)) //1500, 2500
+        while((block._loop(s))&&(counter < OVERRUN)) //1500, 2500
         {
             for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
             {
@@ -149,15 +150,12 @@ std::string polymorphic::program::run(state &s)
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s);
+                result += it->run(s, overrun);
             }
             ++counter;
         };
 
-        if(counter >= 500)
-        {
-            std::cout << "max counter in run!\r\n";
-        }
+        if(counter >= OVERRUN) overrun = true;
     }
 
     return result;
@@ -168,7 +166,7 @@ polymorphic::program polymorphic::program::unused()
     program result;
 
     std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> map;
-    this->unique(map, result.variables);
+    this->unique(map, result.variables, true);
 
     result.copy(this, map);
 
@@ -276,7 +274,7 @@ void polymorphic::program::copy(polymorphic::program *source, std::unordered_map
     }
 }
 
-std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> polymorphic::program::unique(std::unordered_map<int, std::tuple<vars::variable,int>> &result, vars::variables &input)
+void polymorphic::program::unique(std::unordered_map<int, std::tuple<vars::variable,int>> &result, vars::variables &input, bool ignore_assignments)
 {
     std::unordered_map<int, vars::variable> map;
     
@@ -286,12 +284,35 @@ std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> polymorphic
         if(map.find(v.id) == map.end()) map[v.id] = v;
     }
 
-    for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
+    if(ignore_assignments)
     {
-        for(std::vector<polymorphic::vars::variable>::iterator jt = it->variables.begin(); jt < it->variables.end(); jt++)
+        for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
         {
-            vars::variable v = *jt;
-            if(map.find(v.id) == map.end()) map[v.id] = v;
+            int count = 0;
+            for(std::vector<polymorphic::vars::variable>::iterator jt = it->variables.begin(); jt < it->variables.end(); jt++)
+            {
+                if((count == 0)&&((it->type==0)||(it->type==1)))
+                {
+                }
+                else
+                {
+                    vars::variable v = *jt;
+                    if(map.find(v.id) == map.end()) map[v.id] = v;
+                }
+
+                ++count;
+            }
+        }
+    }
+    else
+    {
+        for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
+        {
+            for(std::vector<polymorphic::vars::variable>::iterator jt = it->variables.begin(); jt < it->variables.end(); jt++)
+            {
+                vars::variable v = *jt;
+                if(map.find(v.id) == map.end()) map[v.id] = v;
+            }
         }
     }
 
@@ -310,8 +331,6 @@ std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> polymorphic
             result[a.first] = std::tuple<vars::variable,int>(w,n.id);
         }
     }
-
-    return result;
 }
 
 

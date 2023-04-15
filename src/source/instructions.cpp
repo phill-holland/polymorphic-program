@@ -266,15 +266,31 @@ void polymorphic::instrs::instructions::copy(instructions &source, std::unordere
         temp.type = s.type;
         temp.parameters = s.parameters;
 
+        bool excluded = false;
+
+        vars::variable previous;
+
         for(std::vector<polymorphic::vars::variable>::iterator jt = s.variables.begin(); jt < s.variables.end(); jt++)
-        {
-            vars::variable t;
+        {            
             vars::variable v = *jt;
-            t.id = std::get<1>(map[v.id]);
-            t.type = v.type;
-            temp.variables.push_back(t);
+            
+            if(map.find(v.id) != map.end())
+            {
+                vars::variable t;
+                t.id = std::get<1>(map[v.id]);
+                t.type = v.type;
+                temp.variables.push_back(t);
+            }
+            else excluded = true;
+
+            if((s.type == 0)&&(previous.id == v.id)&&(previous.type == v.type)) excluded = true;
+
+            previous = *jt;
         }
         
-        values.push_back(temp);        
+        if(!excluded) 
+        {
+            values.push_back(temp);        
+        }
     }
 }

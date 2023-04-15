@@ -128,6 +128,10 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 # Todo
 
+- Exclude FOR LOOPS from code generation
+
+- Need to limit depth during crossover (prevent excessive growth)
+
 - Test code crossover function (OKISH)
 
 - Fix CROSSOVER IS NULL bug (DONE)

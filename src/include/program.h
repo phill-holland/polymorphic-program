@@ -7,6 +7,7 @@
 #include <random>
 #include <vector>
 #include <unordered_map>
+#include <tuple>
 
 #ifndef _POLYMORPHIC_PROGRAM
 #define _POLYMORPHIC_PROGRAM
@@ -15,6 +16,8 @@ namespace polymorphic
 {    
     class program
     {
+        const static int OVERRUN = 100;//500;
+
         static std::mt19937_64 generator;
 
     public:
@@ -41,7 +44,7 @@ namespace polymorphic
         void generate();  
         void mutate();
         
-        std::string run();
+        std::tuple<std::string, bool> run();
         
         polymorphic::program unused();
         
@@ -52,14 +55,15 @@ namespace polymorphic
         static std::vector<program*> deconstruct(program &a);        
 
     protected:
-        std::string run(state &s);
+        std::string run(state &s, bool &overrun);
 
     protected:
         void copy(program *source, program *until, 
                   polymorphic::program *alt_source, 
                   std::unordered_map<int, std::tuple<vars::variable,int>> &result);
         void copy(program *source, std::unordered_map<int, std::tuple<vars::variable,int>> &result);
-        std::unordered_map<int, std::tuple<vars::variable,int>> unique(std::unordered_map<int, std::tuple<vars::variable,int>> &result, vars::variables &input);
+        
+        void unique(std::unordered_map<int, std::tuple<vars::variable,int>> &result, vars::variables &input, bool ignore_assignments = false);
         
     protected: 
         std::string get(int depth);
