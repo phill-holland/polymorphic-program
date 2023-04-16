@@ -31,7 +31,7 @@ TEST(BasicProgramExecutionWithStringOutput, BasicAssertions)
     p.instructions.values.push_back(i1);
     p.instructions.values.push_back(i2);
 
-    std::tuple<std::string, bool> result = p.run();
+    std::tuple<std::string, bool, int> result = p.run();
 
     EXPECT_TRUE(expected == std::get<0>(result));
 }
@@ -74,7 +74,7 @@ TEST(BasicProgramExecutionAssignmentWithStringOutput, BasicAssertions)
     p.instructions.values.push_back(i2);
     p.instructions.values.push_back(i3);
 
-    std::tuple<std::string, bool> result = p.run();
+    std::tuple<std::string, bool, int> result = p.run();
 
     EXPECT_TRUE(expected == std::get<0>(result));
 }
@@ -146,7 +146,7 @@ TEST(BasicProgramExecutionIfStatementWithStringOutput, BasicAssertions)
 
     main.children.push_back(_if);
 
-    std::tuple<std::string, bool> result = main.run();
+    std::tuple<std::string, bool, int> result = main.run();
 
     EXPECT_TRUE(expected == std::get<0>(result));
 }
@@ -195,7 +195,7 @@ TEST(BasicProgramExecutionForLoopWithStringOutput, BasicAssertions)
 
     main.children.push_back(_for);
 
-    std::tuple<std::string, bool> result = main.run();
+    std::tuple<std::string, bool, int> result = main.run();
 
     EXPECT_TRUE(expected == std::get<0>(result));
 }
@@ -265,7 +265,7 @@ TEST(BasicProgramExecutionForLoopWithIfAndStringOutput, BasicAssertions)
 
     main.children.push_back(_for);
 
-    std::tuple<std::string, bool> result = main.run();
+    std::tuple<std::string, bool, int> result = main.run();
 
     EXPECT_TRUE(expected == std::get<0>(result));
 }

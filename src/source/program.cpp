@@ -47,6 +47,7 @@ void polymorphic::program::generate(vars::variables &v, int depth)
     {
         program temp(configuration);
         temp.block.type = (std::uniform_int_distribution<int>{0, 1})(generator);
+        //temp.block.type = 0;
 
         if((temp.block.type == 0)&&(!v.isempty()))
         {
@@ -91,31 +92,35 @@ void polymorphic::program::generate(vars::variables &v, int depth)
     }
 }
 
-std::tuple<std::string, bool> polymorphic::program::run()
+std::tuple<std::string, bool, int> polymorphic::program::run()
 {
     state s(variables);
     std::string result;
 
-     for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
+    for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
     {
         instrs::instruction in = *it;
         result += in.run(s);
     }
     
     std::vector<polymorphic::program>::iterator it;
+    
     bool overrun = false;
+    int max_depth = 0;
 
     for(it = children.begin(); it < children.end(); it++)
     {                    
-        result += it->run(s, overrun);
+        result += it->run(s, overrun, 0, max_depth);
     }
 
-    return std::tuple<std::string, bool>(result, overrun);
+    return std::tuple<std::string, bool, int>(result, overrun, max_depth);
 }
 
-std::string polymorphic::program::run(state &s, bool &overrun)
+std::string polymorphic::program::run(state &s, bool &overrun, int depth, int &max_depth)
 {    
     std::string result; 
+
+    if(depth > max_depth) max_depth = depth;
 
     if(block.type == 0)
     {
@@ -131,7 +136,7 @@ std::string polymorphic::program::run(state &s, bool &overrun)
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s, overrun);
+                result += it->run(s, overrun, depth + 1, max_depth);
             }
         }
     }
@@ -150,7 +155,7 @@ std::string polymorphic::program::run(state &s, bool &overrun)
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s, overrun);
+                result += it->run(s, overrun, depth + 1, max_depth);
             }
             ++counter;
         };
@@ -168,7 +173,7 @@ polymorphic::program polymorphic::program::unused()
     std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> map;
     this->unique(map, result.variables, true);
 
-    result.copy(this, map);
+    result.copy(this, NULL, map);
 
     return result;
 }
@@ -200,13 +205,17 @@ polymorphic::program polymorphic::program::cross(program &a, program &b, int c1,
     if((c2 >= 0)&&(c2 < p2.size()))
         b1 = c2;
 
+    int e1 = p2.size() - 1;
+    if(b1 < p2.size() - 1) e1 = (std::uniform_int_distribution<int>{b1, (int)(p2.size() - 1)})(generator);
+
     result.variables = a.variables;
 
     std::unordered_map<int, std::tuple<polymorphic::vars::variable,int>> map;
     p2[b1]->unique(map, result.variables);
 
-    result.copy(&a, p1[a1], p2[b1], map);
-
+    //result.copy(&a, p1[a1], NULL, p2[b1], map);
+    result.copy(&a, p1[a1], p2[e1], p2[b1], map);
+ 
     return result.unused();
 }
 
@@ -235,7 +244,7 @@ std::vector<polymorphic::program*> polymorphic::program::deconstruct(polymorphic
     return result;
 }
 
-void polymorphic::program::copy(program *source, program *until,
+void polymorphic::program::copy(program *source, program *until, program *end,
                                 polymorphic::program *alt_source, 
                                 std::unordered_map<int, std::tuple<vars::variable,int>> &result)
 {
@@ -249,18 +258,23 @@ void polymorphic::program::copy(program *source, program *until,
         for(it = source->children.begin(); it < source->children.end(); it++)
         {
             program p;
-            p.copy(&(*it), until, alt_source, result);
+            p.copy(&(*it), until, end, alt_source, result);
             children.push_back(p);            
         }
     }
     else
     {
-        this->copy(alt_source, result);     
+        this->copy(alt_source, end, result);     
     }
 }
 
-void polymorphic::program::copy(polymorphic::program *source, std::unordered_map<int, std::tuple<vars::variable,int>> &result)
+void polymorphic::program::copy(polymorphic::program *source, polymorphic::program *end, std::unordered_map<int, std::tuple<vars::variable,int>> &result)
 {
+    if(end != NULL)
+    {
+        if(end == source) return;
+    }
+
     block.copy(source->block, result);
     instructions.copy(source->instructions, result);
 
@@ -269,7 +283,7 @@ void polymorphic::program::copy(polymorphic::program *source, std::unordered_map
     for(it = source->children.begin(); it < source->children.end(); it++)
     {
         program p;
-        p.copy(&(*it), result);
+        p.copy(&(*it), end, result);
         children.push_back(p);
     }
 }

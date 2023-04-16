@@ -28,8 +28,9 @@ polymorphic::schema polymorphic::schema::cross(schema &value)
 
 std::string polymorphic::schema::run()
 {		
-    std::tuple<std::string, bool> output = data.run();
+    std::tuple<std::string, bool, int> output = data.run();
 
+    int max_depth = std::get<2>(output);
     bool overrun = std::get<1>(output);    
     std::string value = std::get<0>(output);
 
@@ -42,6 +43,12 @@ std::string polymorphic::schema::run()
         scores.clear();
         std::cout << "overrun!\r\n";
     }
+    
+    if(max_depth >= 8)
+    {
+        std::cout << "max depth exceeded! (" << max_depth << ")\r\n";
+    }
+    
 
 	return value;
 }

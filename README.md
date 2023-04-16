@@ -128,7 +128,11 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 # Todo
 
-- Exclude FOR LOOPS from code generation
+- ADD depth parameter to program::run function (similar to overrun bool value) terminate when depth get's too deep, score zero
+
+- Add number of instructions run counter
+
+- Exclude FOR LOOPS from code generation (meh, doesn't seem to change anything)
 
 - Need to limit depth during crossover (prevent excessive growth)
 

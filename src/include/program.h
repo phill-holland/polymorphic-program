@@ -44,7 +44,7 @@ namespace polymorphic
         void generate();  
         void mutate();
         
-        std::tuple<std::string, bool> run();
+        std::tuple<std::string, bool, int> run();
         
         polymorphic::program unused();
         
@@ -55,13 +55,13 @@ namespace polymorphic
         static std::vector<program*> deconstruct(program &a);        
 
     protected:
-        std::string run(state &s, bool &overrun);
+        std::string run(state &s, bool &overrun, int depth, int &max_depth);
 
     protected:
-        void copy(program *source, program *until, 
+        void copy(program *source, program *until, program *end,
                   polymorphic::program *alt_source, 
                   std::unordered_map<int, std::tuple<vars::variable,int>> &result);
-        void copy(program *source, std::unordered_map<int, std::tuple<vars::variable,int>> &result);
+        void copy(program *source,  polymorphic::program *end, std::unordered_map<int, std::tuple<vars::variable,int>> &result);
         
         void unique(std::unordered_map<int, std::tuple<vars::variable,int>> &result, vars::variables &input, bool ignore_assignments = false);
         

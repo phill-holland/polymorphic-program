@@ -43,7 +43,7 @@ bool polymorphic::population::go(int iterations)
     std::string beststr;
     float best = 0.0f;
     
-    const float mutate_rate_in_percent = 10.0f;
+    const float mutate_rate_in_percent = 20.0f;
     const float mutation = (((float)size) / 100.0f) * mutate_rate_in_percent;
 
     do

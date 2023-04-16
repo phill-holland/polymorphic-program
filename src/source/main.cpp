@@ -18,7 +18,7 @@ void run()
     settings._loop.min = 1; // 1
     settings._loop.max = 5; // 5
 
-    polymorphic::population p(settings, 300); //200, try 300
+    polymorphic::population p(settings, 300); //200, try 300, try 400
 
     p.generate();
     p.go(200); // 600
