@@ -130,6 +130,7 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 Below is an example output from the program, as you can see, it's not entirely obvious at first glance what this program does.
 
+(note some bugs, empty { } function blocks! the y variable isn't declared at top as an integer!)
 
 ```
 #include <iostream>
