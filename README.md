@@ -235,6 +235,12 @@ Whilst running the program, due to it's random nature, it may take several resta
 
 # Todo
 
+- Fix empty blocks { } output bug
+
+- Fix top level FOR level with no variable declarations
+
+- Top scoring string "hello world!" only scores 8.5
+
 - Mutate blocks update, ideally move blocks around and delete some randomly
 
 - Fix tabbed output (DON'T CARE ABOUT ANYMORE)
