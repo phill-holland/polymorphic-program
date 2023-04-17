@@ -30,13 +30,16 @@ namespace polymorphic
         void generate();
         bool go(int iterations = 0);
 
-        schema best();
+        schema top();
         
     public:
         std::string output();
 
     protected:
-        schema *tournament(int j);
+        schema *best(int j);
+        int worst();
+
+    protected:
         bool set(int index, schema &source);
 
     protected:

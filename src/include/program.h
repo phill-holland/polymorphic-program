@@ -43,8 +43,9 @@ namespace polymorphic
         void clear();
         void generate();  
         void mutate();
+        //void mutant(polymorphic::program *source);
         
-        std::tuple<std::string, bool, int> run();
+        std::tuple<std::string, bool, int, int> run();
         
         polymorphic::program unused();
         
@@ -55,7 +56,7 @@ namespace polymorphic
         static std::vector<program*> deconstruct(program &a);        
 
     protected:
-        std::string run(state &s, bool &overrun, int depth, int &max_depth);
+        std::string run(state &s, bool &overrun, int depth, int &max_depth, int &instr_counter);
 
     protected:
         void copy(program *source, program *until, program *end,

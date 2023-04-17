@@ -4,6 +4,7 @@
 #include <string>
 #include <random>
 #include <vector>
+#include <tuple>
 
 #ifndef _POLYMORPHIC_SCHEMA
 #define _POLYMORPHIC_SCHEMA
@@ -50,7 +51,7 @@ namespace polymorphic
         void mutate();
 
     public:
-        std::string run();           
+        std::tuple<std::string, bool, int, int> run();           
     };
 };
 

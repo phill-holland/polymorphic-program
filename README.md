@@ -126,43 +126,121 @@ public:
 
 Using genetic algorithms in this way might be considered redundant now(?) with the recent progress in fields of machine learning -- there may be potential here to have a customized variation of ChatGPT that performed this task more efficiently, simply asking it to generate all the same variations of the code it could think of, but where's the fun in that?
 
+# Example Output
+
+Below is an example output from the program, as you can see, it's not entirely obvious at first glance what this program does.
+
+
+```
+#include <iostream>
+
+using namespace std;
+int main() {
+  for (y; y < 0; ++y) {
+    int b = 0;
+    int c = 0;
+    string d = "";
+    int e = 0;
+    int f = 0;
+    string g = "";
+    string h = "";
+    string i = "";
+    int j = 0;
+    int k = 0;
+    string l = "";
+    string m = "";
+    int n = 0;
+    string o = "";
+    int p = 0;
+    int q = 0;
+    string r = "";
+    string s = "";
+    string t = "";
+    int u = 0;
+    string v = "";
+    bool w = false;
+    string x = "";
+    string y = "";
+    y = "he";
+    cout << y;
+    y = "ll";
+    cout << y;
+    for (p; p < 17; ++p) {
+      x = "o ";
+      w = false;
+      cout << v;
+      cout << v;
+      cout << x;
+      x = "ll";
+      x = v;
+      v = x;
+      v = x;
+      v = "d!";
+      u = 49; {}
+      if (p == p) {
+        cout << o;
+        o = "o ";
+        o = "wo";
+        p = 67;
+        cout << o;
+        o = "wo";
+        if (b >= n) {
+          b = c;
+          b = 17;
+          cout << m;
+          b = 39;
+          c = b;
+          b = 22;
+          cout << m;
+          m = "rl";
+          b = c;
+          cout << m;
+          cout << l;
+          m = "he"; {}
+          if (c >= b) {}
+          if (f > e) {
+            cout << d;
+          }
+          if (k < j) {
+            cout << i;
+            h = g;
+            h = i;
+            i = "d!";
+            cout << h;
+            cout << i;
+          }
+        } {
+          d = "o ";
+        }
+      }
+      for (q; q < 3; ++q) {
+        cout << t;
+        s = r;
+        s = t;
+        t = "d!";
+        cout << s;
+        cout << t;
+        for (q; q < 1; ++q) {}
+      }
+    } {}
+  }
+  return 0;
+}
+```
+
+# Further Notes
+
+Whilst running the program, due to it's random nature, it may take several restarts before a solution is reached (working on this problem).  It may get close to a solution, but may take a large amount of time to reach to the final solution.
+
 # Todo
-
-- ADD depth parameter to program::run function (similar to overrun bool value) terminate when depth get's too deep, score zero
-
-- Add number of instructions run counter
-
-- Exclude FOR LOOPS from code generation (meh, doesn't seem to change anything)
-
-- Need to limit depth during crossover (prevent excessive growth)
-
-- Test code crossover function (OKISH)
-
-- Fix CROSSOVER IS NULL bug (DONE)
-
-- Include top level input parameters to limit growth size of programs (DONE)
-
-- ***Need a find unused variable function for each program (and remove) THIS NEXT!! (get used variables, then remap)
-
-- Unused variables part 2, remove variables and instructions that are assigned to, but never used
 
 - Mutate blocks update, ideally move blocks around and delete some randomly
 
 - Fix tabbed output (DON'T CARE ABOUT ANYMORE)
 
-- Need to parse/run output code inline (rather than running an external compiler and running on the OS) (ADDED, NOT TESTED)
-
 - Add string output score function to test outputs afer program run (copy from another project) (DONE)
 
-- Edit random string generator to only use "hello world" characters as grammar (DONE)
-
-- Add code mutation function (DONE)
-
-- Suppress output of anything that's not a string (i.e. integers/booleans) (DONEISH)
-
-- Add google tests (DONE)
-
-- Ensure in block._loop function, doesn't go into infinite loop DONEISH
+- Fix Crossover Tests
 
 - Include the generation code, as part of the randomly generated code (self replicating, can it generate code that generates copies of itself)
 

@@ -21,20 +21,65 @@ void polymorphic::program::generate()
 
 void polymorphic::program::mutate()
 {
+    if(variables.values.size() == 0) return;
+
+// need to shuffle children order
+// need to shuffle instruction order
+
+// get run program to list used instructions
     std::vector<program*> p1 = deconstruct(*this);
     int a1 = (std::uniform_int_distribution<int>{0, (int)(p1.size() - 1)})(generator);
-    int a2 = (std::uniform_int_distribution<int>{0, 1})(generator);
-
+    int a2 = (std::uniform_int_distribution<int>{0, 2})(generator);
+    //int a2 = 2;
     if(a2 == 0)
     {
         p1[a1]->block.mutate(configuration, variables);
     }
     else if(a2 == 1)
     {
+        int s = p1[a1]->children.size();
+        if(s > 0)
+        {
+            int d = (std::uniform_int_distribution<int>{0, (int)(s - 1)})(generator);   
+            p1[a1]->children.erase(p1[a1]->children.begin() + d);
+        }
+        else p1[a1]->block.mutate(configuration, variables);
+    }
+/*    else if(a2 == 2)
+    {
+        program t(configuration);
+        t.generate(variables, configuration._children.depth);
+        p1[a1]->children.push_back(t);
+    }
+    */
+    else if(a2 == 2)
+    {
         p1[a1]->instructions.mutate(variables);
     }
 }
+/*
+void polymorphic::program::mutant(polymorphic::program *source)
+{
+    const int c = 0;
 
+    int t = (std::uniform_int_distribution<int>{0, 2})(generator);
+    int chance = (std::uniform_int_distribution<int>{0, 50})(generator);
+
+    block = source->block;
+    instructions = source->instructions;
+
+    if((chance == c)&&(t == 0)) block.mutate(source->configuration, variables);
+
+    std::vector<polymorphic::program>::iterator it;
+
+    for(it = source->children.begin(); it < source->children.end(); it++)
+    {
+        program p;
+        p.mutant(&(*it));
+        children.push_back(p);
+    }
+}
+*/
 void polymorphic::program::generate(vars::variables &v, int depth)
 {
     if(depth > configuration._children.depth) return;
@@ -92,31 +137,35 @@ void polymorphic::program::generate(vars::variables &v, int depth)
     }
 }
 
-std::tuple<std::string, bool, int> polymorphic::program::run()
+std::tuple<std::string, bool, int, int> polymorphic::program::run()
 {
     state s(variables);
-    std::string result;
 
+    int instr_counter = 0;  
+    std::string result;
+    
     for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
     {
         instrs::instruction in = *it;
         result += in.run(s);
+
+        ++instr_counter;
     }
     
     std::vector<polymorphic::program>::iterator it;
     
     bool overrun = false;
     int max_depth = 0;
-
+    
     for(it = children.begin(); it < children.end(); it++)
     {                    
-        result += it->run(s, overrun, 0, max_depth);
+        result += it->run(s, overrun, 0, max_depth, instr_counter);
     }
 
-    return std::tuple<std::string, bool, int>(result, overrun, max_depth);
+    return std::tuple<std::string, bool, int, int>(result, overrun, max_depth, instr_counter);
 }
 
-std::string polymorphic::program::run(state &s, bool &overrun, int depth, int &max_depth)
+std::string polymorphic::program::run(state &s, bool &overrun, int depth, int &max_depth, int &instr_counter)
 {    
     std::string result; 
 
@@ -130,13 +179,15 @@ std::string polymorphic::program::run(state &s, bool &overrun, int depth, int &m
             {
                 instrs::instruction in = *it;
                 result += in.run(s);
+
+                ++instr_counter;
             }
             
             std::vector<polymorphic::program>::iterator it;
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s, overrun, depth + 1, max_depth);
+                result += it->run(s, overrun, depth + 1, max_depth, instr_counter);
             }
         }
     }
@@ -149,13 +200,15 @@ std::string polymorphic::program::run(state &s, bool &overrun, int depth, int &m
             {
                 instrs::instruction in = *it;
                 result += in.run(s);
+
+                ++instr_counter;
             }
             
             std::vector<polymorphic::program>::iterator it;
 
             for(it = children.begin(); it < children.end(); it++)
             {                    
-                result += it->run(s, overrun, depth + 1, max_depth);
+                result += it->run(s, overrun, depth + 1, max_depth, instr_counter);
             }
             ++counter;
         };

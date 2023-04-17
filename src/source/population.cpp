@@ -40,54 +40,84 @@ bool polymorphic::population::go(int iterations)
     bool result = false;
     int count = 0;
 
-    std::string beststr;
-    float best = 0.0f;
+    const int max = 3;
+    std::string outputs[max];
     
-    const float mutate_rate_in_percent = 20.0f;
+    const float mutate_rate_in_percent = 20.0f;//30.0f;//20.0f;
     const float mutation = (((float)size) / 100.0f) * mutate_rate_in_percent;
 
     do
     {
-        float total = 0.0f;
-        best = 0.0f;
+        int total_depth = 0;
+        int total_instructions = 0;
+        int mutants = 0;
 
-        for(int i = 0; i < size; ++i)
-        {            
+        float total = 0.0f;
+        float most = 0.0f;
+      
+        for(int generation = 0; generation < size; ++generation)
+        {        
+            std::tuple<std::string, bool, int, int> output;
+            float sum = 0.0f;
+
+            int offspring = worst();            
+
             int t = (std::uniform_int_distribution<int>{0, size - 1})(generator);
             if(((float)t) <= mutation) 
             {
-                data[i]->mutate();
+                schema *s1 = best(offspring);
+                s1->mutate();
+                
+                output = s1->run();
+                set(offspring, *s1);
+                sum = s1->scores.sum();
+                
+                ++mutants;                
             }
-        }
-        
-        for(int i = 0; i < size; ++i)
-        {            
-            schema s1 = *tournament(i);
-            schema s2 = *tournament(i);
+            else
+            {
+                schema s1 = *best(offspring);
+                schema s2 = *best(offspring);
+                
+                schema temp = s1.cross(s2);
 
-            schema temp = s1.cross(s2);
-
-            //std::cout << temp.output();
-
-            std::string output = temp.run();
-            float sum = temp.scores.sum();
-
-            if(set(i, temp))
-            {                
-                if(sum > best)
-                {
-                    best = sum;
-                    beststr = output;
-                }
-                if(sum >= 0.9999f) result = true;                
+                output = temp.run();
+                set(offspring, temp);
+                sum = temp.scores.sum();                
             }
 
             total += sum;
+            total_depth += std::get<2>(output);
+            total_instructions += std::get<3>(output);
+
+            if(sum > most)
+            {
+                most = sum;
+                for(int f = 1; f < max; ++f)
+                {
+                    outputs[f] = outputs[f-1];
+                }
+                outputs[0] = std::get<0>(output);
+            }
+
+            if(sum >= 0.9999f) result = true;    
+            if(std::get<0>(output)==std::string("hello world!")) result = true;            
         }
 
         total /= size;
+        total_depth /= size;
+        total_instructions /= size;
 
-        std::cout << "Iteration (" << count << ") Best=" << best << " (" << beststr << ") Average=" << total << "\r\n";
+        std::cout << "Generation (" << count << ") Best=" << most << " (";
+        for(int d = 0; d < max; ++d)
+        {
+            std::cout << outputs[d];
+            if(d < max - 1) std::cout << ", ";
+        }
+        
+        std::cout << ") Avg=" << total;
+        std::cout << " AvgDepth=" << total_depth << " AvgInstr=" << total_instructions;
+        std::cout << " M=" << mutants << "\r\n";
 
         if((iterations > 0)&&(count > iterations)) result = true;
 
@@ -101,7 +131,7 @@ bool polymorphic::population::go(int iterations)
     return result;
 }
 
-polymorphic::schema polymorphic::population::best()
+polymorphic::schema polymorphic::population::top()
 {
     float s = 0.0f;
     int j = 0;
@@ -131,7 +161,7 @@ std::string polymorphic::population::output()
     return result;
 }
 
-polymorphic::schema *polymorphic::population::tournament(int j)
+polymorphic::schema *polymorphic::population::best(int j)
 {
     const int samples = 10;
 
@@ -192,6 +222,67 @@ polymorphic::schema *polymorphic::population::tournament(int j)
 	return data[best];
 }
 
+int polymorphic::population::worst()
+{
+    const int samples = 10;
+
+	std::uniform_int_distribution<int> rand{ 0L, size - 1 };
+
+    const int dimensions = polymorphic::score::length;
+
+	dominance::kdtree::kdpoint temp1(dimensions), temp2(dimensions);
+	dominance::kdtree::kdpoint origin(dimensions);
+
+	temp1.set(0L);
+	temp2.set(0L);
+	origin.set(0L);
+
+    int competition;
+
+    int worst = rand(generator);
+	float score = data[worst]->scores.sum();
+
+	for (int i = 0; i < samples; ++i)
+	{
+		competition = rand(generator);
+
+		for(int i = 0; i < dimensions; ++i)
+		{
+			float score1 = data[worst]->scores.scores[i];
+			score1 = (score1 * ((float)maximum - minimum)) + minimum;
+
+			temp1.set((long)score1, i);
+
+			float score2 = data[competition]->scores.scores[i];
+			score2 = (score2 * ((float)maximum - minimum)) + minimum;
+
+			temp2.set((long)score2, i);
+		}
+					        
+		float t2 = data[competition]->scores.sum();
+
+		if(approximation->exists(temp2))
+		{
+			if(approximation->inside(temp2, &origin, &temp1))
+			{
+				score = t2;
+			}
+			else 
+			{
+				worst = competition;
+				score = t2;
+			}
+		}
+		else if(t2 < score)
+		{
+			worst = competition;
+			score = t2;
+		}
+	}
+
+	return worst;
+}
+
 bool polymorphic::population::set(int index, schema &source)
 {
     std::uniform_real_distribution<float> dist{ 0.0f, 1.0f };
@@ -200,7 +291,7 @@ bool polymorphic::population::set(int index, schema &source)
 	//core::threading::semaphore lock(token);
 	
 	//long offspring = worst(); // input from parameters
-	//if(source.score < schemas[offspring]->score) return offspring;
+	if(source.scores.sum() < data[index]->scores.sum()) return false;
 
     const int dimensions = polymorphic::score::length;
 
@@ -232,11 +323,10 @@ bool polymorphic::population::set(int index, schema &source)
 	if(!temp2.issame(minimum)) 
     {
         approximation->insert(&temp2);
-        *data[index] = source;
         result = true;
     }
 
-    //*data[index] = source;
+    *data[index] = source;
 
 	return result;
 }
