@@ -425,6 +425,89 @@ return 0;
     EXPECT_TRUE(expected == result);
 }
 
+TEST(BasicProgramBasicMutation, BasicAssertions)
+{
+    std::string expected = R"(#include <iostream>
+using namespace std;
+ int main() {{
+string b = "";
+int c = 0;
+bool d = false;
+int e = 0;
+b="ha!";
+c=5;
+for (e;e<10;++e){
+if (e>=c){
+cout << b;
+}
+}
+}
+return 0;
+})";
+
+    polymorphic::program main;
+
+    polymorphic::vars::variable v1, v2, v4;
+    
+    v1 = main.variables.get(0);
+    v4 = main.variables.get(1);
+
+    polymorphic::vars::variable throw_away = main.variables.get(2);
+
+    polymorphic::instrs::instruction i1;
+
+    i1.type = 1;
+    i1.variables.push_back(v1);
+    i1.parameters.push_back("ha!");
+
+    main.instructions.values.push_back(i1);
+
+    polymorphic::instrs::instruction i2;
+
+    i2.type = 1;
+    i2.variables.push_back(v4);
+    i2.parameters.push_back("5");
+
+    main.instructions.values.push_back(i2);
+
+    v2 = main.variables.get(1);
+
+    polymorphic::program _for;
+
+    _for.block.type = 1;
+    _for.block.parameters.push_back(std::string("10"));
+
+    _for.block.variables.push_back(v2);
+
+    polymorphic::program _if;
+    
+    _if.block.type = 0;
+    _if.block.parameters.push_back(std::string(">="));
+
+    _if.block.variables.push_back(v2);
+    _if.block.variables.push_back(v4);
+
+    polymorphic::instrs::instruction i4;
+
+    i4.type = 2;
+    i4.variables.push_back(v1);
+
+    _if.instructions.values.push_back(i4);
+
+    _for.children.push_back(_if);
+
+    main.children.push_back(_for);
+
+    main.mutate();
+
+    std::string result = main.output();
+
+    expected.erase(std::remove(expected.begin(), expected.end(), '\n'), expected.cend());
+    result.erase(std::remove(result.begin(), result.end(), '\n'), result.cend());
+
+    EXPECT_TRUE(expected != result);
+}
+
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
