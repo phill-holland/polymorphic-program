@@ -69,20 +69,7 @@ void polymorphic::score::compute(std::string value)
 	};
 
     clear();
-
-//value = std::string("hehed!worlhehe");
- //value = std::string("hehed!worl");
-//value = std::string("hello world!");	
-//value = std::string("heooo wor!ll");
-//value = std::string("heooo worlll");
-//value = std::string("llooo worlhe");
-//value = std::string("hello world!d!d!");
-//value = std::string("llo world!o rld!");
-//hello world!hehe
-
-//value = std::string("hello worlrld!rlrlrld!");
-//value = std::string("heo rld!");
-
+	
     if(value.size() > 0)
 	{		
       	const int a_len = 6;
