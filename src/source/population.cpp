@@ -35,8 +35,10 @@ void polymorphic::population::generate()
     }
 }
 
-bool polymorphic::population::go(int iterations)
+polymorphic::schema polymorphic::population::go(int iterations)
 {
+    schema temp;
+
     bool result = false;
     int count = 0;
 
@@ -61,16 +63,18 @@ bool polymorphic::population::go(int iterations)
             float sum = 0.0f;
 
             int offspring = worst();            
-
+            
             int t = (std::uniform_int_distribution<int>{0, size - 1})(generator);
             if(((float)t) <= mutation) 
             {
                 schema *s1 = best(offspring);
-                s1->mutate();
+                temp = *s1;
+
+                temp.mutate();
                 
-                output = s1->run();
-                set(offspring, *s1);
-                sum = s1->scores.sum();
+                output = temp.run();
+                set(offspring, temp);
+                sum = temp.scores.sum();
                 
                 ++mutants;                
             }
@@ -79,7 +83,7 @@ bool polymorphic::population::go(int iterations)
                 schema s1 = *best(offspring);
                 schema s2 = *best(offspring);
                 
-                schema temp = s1.cross(s2);
+                temp = s1.cross(s2);
 
                 output = temp.run();
                 set(offspring, temp);
@@ -121,14 +125,14 @@ bool polymorphic::population::go(int iterations)
 
         if((iterations > 0)&&(count > iterations)) result = true;
 
-        int c = getch();
-        if(c == 27) result = true;
+        //int c = getch();
+        //if(c == 27) result = true;
 
         ++count;
 
     } while(!result);
 
-    return result;
+    return temp;
 }
 
 polymorphic::schema polymorphic::population::top()
@@ -288,9 +292,6 @@ bool polymorphic::population::set(int index, schema &source)
     std::uniform_real_distribution<float> dist{ 0.0f, 1.0f };
     bool result = false;
 
-	//core::threading::semaphore lock(token);
-	
-	//long offspring = worst(); // input from parameters
 	if(source.scores.sum() < data[index]->scores.sum()) return false;
 
     const int dimensions = polymorphic::score::length;

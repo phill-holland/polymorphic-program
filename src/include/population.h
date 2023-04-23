@@ -28,7 +28,7 @@ namespace polymorphic
         void reset(settings::settings config, int size);
 
         void generate();
-        bool go(int iterations = 0);
+        polymorphic::schema go(int iterations = 0);
 
         schema top();
         

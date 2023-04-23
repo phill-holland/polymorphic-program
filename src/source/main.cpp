@@ -18,13 +18,11 @@ void run()
     settings._loop.min = 1; // 1
     settings._loop.max = 5; // 5
 
-    polymorphic::population p(settings, 200);//500); //200, was 300, try 400
+    polymorphic::population p(settings, 200);//250);//500); //200, was 300, try 400
 
     p.generate();
-    p.go(400); // 600
+    polymorphic::schema best = p.go(400); // 600
 
-    polymorphic::schema best = p.top();
-    
     std::cout << best.output();
     std::tuple<std::string, bool, int, int> result = best.run();
     std::cout << std::get<0>(result);

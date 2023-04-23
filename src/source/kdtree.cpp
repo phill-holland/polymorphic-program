@@ -276,8 +276,6 @@ dominance::kdtree::kdpoint *dominance::kdtree::kdtree::remove(kdpoint &x, kdpoin
 
 dominance::kdtree::kdpoint *dominance::kdtree::kdtree::pop()
 {
-    //core::threading::semaphore lock(token);
-
     if(unallocated.size() <= 0L)
     {
         std::cout << "kdtree no more unallocated nodes left\r\n";
@@ -294,8 +292,6 @@ dominance::kdtree::kdpoint *dominance::kdtree::kdtree::pop()
 
 void dominance::kdtree::kdtree::push(kdpoint *source)
 {
-    //core::threading::semaphore lock(token);
-
     unallocated.push_back(source);
 }
 

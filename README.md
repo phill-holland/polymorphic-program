@@ -233,29 +233,23 @@ int main() {
 
 Whilst running the program, due to it's random nature, it may take several restarts before a solution is reached (working on this problem).  It may get close to a solution, but may take a large amount of time to reach to the final solution.
 
+Why did I call it a "polymorphic-program"?  using such genetic algorithm techniques can provide the basis for generation different code for programs that produce the same output, it may be possible to have a program self-replicate in such a way, similar to systems that exploit evolutionary processes.
+
 # Todo
 
 - Fix empty blocks { } output bug
 
+- Fix runner, doesn't seem entirely capable of running a program correctly
+
 - Fix top level FOR level with no variable declarations
 
-- Top scoring string "hello world!" only scores 8.5
+- Fix Crossover Tests (breaks due to code change, added randomness)
 
-- Mutate blocks update, ideally move blocks around and delete some randomly
+- Fix code generating variables being assigned to themselves
 
-- Fix tabbed output (DON'T CARE ABOUT ANYMORE)
+- Fix code generating IF statements comparisons with variables and self
 
-- Add string output score function to test outputs afer program run (copy from another project) (DONE)
-
-- Fix Crossover Tests
-
-- Include the generation code, as part of the randomly generated code (self replicating, can it generate code that generates copies of itself)
-
-- Variable STATE INIT - GENERATE RANDOM INIT VARIABLES
-
-- BUG SUPPRESS VARIABLE COMPARISONS WITH SELF
-
-- BUG SUPPRESS VARIABLE ASSIGNMENTS TO SELF
+- During variable creation, randomly generator init. values
 
 # Running
 

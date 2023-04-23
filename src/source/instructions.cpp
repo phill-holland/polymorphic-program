@@ -173,11 +173,6 @@ bool polymorphic::instrs::instruction::generate(vars::variables &variables, int 
         vars::variable a = variables.pick(0);
         if(a.type == 0) temp.variables.push_back(a);
         else return false;
-        /*else
-        {
-            vars::variable b = variables.pick();
-            temp.variables.push_back(b);
-        }*/
     }
 
     *this = temp;       
@@ -245,12 +240,6 @@ std::string polymorphic::instrs::instructions::declare(vars::variables &variable
         {
             result += "cout << " + variables.name(in.variables.front()) + ";\n";
         }
-     //   else if(in.type == 3)
-       // {
-            //temp.value = a.name + "=" + b.name + " " + c.name;
-        //}
-
-        //result += in.value + ";\n";
     }
 
     return result;

@@ -186,8 +186,6 @@ bool polymorphic::blocks::block::_loop(state &s)
             bool result = (v1 + 1) < v2;
             s.integers[a.id] = v1 + 1;
 
-           // if(v1 + 1 > 10000) return false;
-
             return result;
         }
     }
