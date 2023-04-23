@@ -42,7 +42,6 @@ std::tuple<std::string, bool, int, int> polymorphic::schema::run()
     else 
     {
         scores.clear();
-        std::cout << "overrun!\r\n";
     }
     
     /*

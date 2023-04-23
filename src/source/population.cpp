@@ -46,7 +46,7 @@ polymorphic::schema polymorphic::population::go(int iterations)
     const int max = 3;
     std::string outputs[max];
     
-    const float mutate_rate_in_percent = 20.0f;//30.0f;//20.0f;
+    const float mutate_rate_in_percent = 20.0f;
     const float mutation = (((float)size) / 100.0f) * mutate_rate_in_percent;
 
     do
@@ -54,6 +54,7 @@ polymorphic::schema polymorphic::population::go(int iterations)
         int total_depth = 0;
         int total_instructions = 0;
         int mutants = 0;
+        int overruns = 0;
 
         float total = 0.0f;        
       
@@ -94,6 +95,7 @@ polymorphic::schema polymorphic::population::go(int iterations)
             total += sum;
             total_depth += std::get<2>(output);
             total_instructions += std::get<3>(output);
+            if(std::get<1>(output)) ++overruns;
 
             if(sum > most)
             {
@@ -123,7 +125,8 @@ polymorphic::schema polymorphic::population::go(int iterations)
         }
         
         std::cout << ") Avg=" << total;
-        std::cout << " AvgDepth=" << total_depth << " AvgInstr=" << total_instructions;
+        std::cout << " AvgDep=" << total_depth << " AvgIns=" << total_instructions;
+        std::cout << " Ovr=" << overruns;
         std::cout << " M=" << mutants << "\r\n";
 
         if((iterations > 0)&&(count > iterations)) result = true;
