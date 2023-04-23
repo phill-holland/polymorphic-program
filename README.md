@@ -310,6 +310,56 @@ int main() {
 }
 ```
 
+```
+#include <iostream>
+
+using namespace std;
+int main() {
+  {
+    string b = "";
+    int c = 0;
+    int d = 0;
+    string e = "";
+    e = "he";
+    cout << e;
+    e = "d!";
+    e = "ll";
+    cout << b;
+    cout << e;
+    for (d; d < 3; ++d) {
+      e = b;
+      for (c; c < 4; ++c) {
+        cout << b;
+        c = 2;
+        b = "o ";
+        cout << b;
+        c = 43;
+        e = "wo";
+        if (c >= d) {
+          cout << e;
+          b = "he";
+          b = "d!";
+        }
+        if (b == b) {
+          b = "rl";
+          b = "rl";
+          cout << b;
+          b = "he";
+        }
+      }
+    }
+    for (d; d < 8; ++d) {
+      e = "d!";
+      d = 57;
+      cout << e;
+      c = 14;
+      e = "wo";
+    }
+  }
+  return 0;
+}
+```
+
 # Further Notes
 
 Whilst running the program, due to it's random nature, it may take several restarts before a solution is reached (working on this problem).  It may get close to a solution, but may take a large amount of time to reach to the final solution.
@@ -331,6 +381,8 @@ Why did I call it a "polymorphic-program"?  using such genetic algorithm techniq
 - Fix code generating IF statements comparisons with variables and self
 
 - During variable creation, randomly generator init. values
+
+- Add warning that generation is taking too long, i.e. if the top three of ecah generation hasn't changed, over X generations, issue a warning
 
 # Running
 
