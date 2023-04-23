@@ -128,9 +128,7 @@ Using genetic algorithms in this way might be considered redundant now(?) with t
 
 # Example Output
 
-Below is an example output from the program, as you can see, it's not entirely obvious at first glance what this program does.
-
-(note some bugs, empty { } function blocks! the y variable isn't declared at top as an integer!)
+Below are some example outputs from the program, as you can see, it's not entirely obvious at first glance what this program does, and demonstrates the many many different ways one can write some code to do the same thing.
 
 ```
 #include <iostream>
@@ -251,6 +249,61 @@ int main() {
       d = "ll";
       b = "he";
       e = "wo";
+    }
+  }
+  return 0;
+}
+```
+
+```
+#include <iostream>
+
+using namespace std;
+int main() {
+  {
+    string b = "";
+    int c = 0;
+    bool d = false;
+    string e = "";
+    string f = "";
+    int g = 0;
+    f = e;
+    cout << f;
+    e = f;
+    g = c;
+    f = "he";
+    e = f;
+    f = "ll";
+    cout << e;
+    e = f;
+    f = e;
+    cout << b;
+    cout << f;
+    if (c == c) {
+      f = "ll";
+      f = "rl";
+      cout << b;
+      b = "d!";
+      b = "o ";
+      cout << b;
+      d = false;
+      d = true;
+      b = "wo";
+      cout << b;
+      c = 62;
+    }
+    if (g == g) {
+      e = f;
+      e = f;
+      cout << f;
+      e = f;
+      g = 45;
+      e = "d!";
+      cout << e;
+      e = f;
+      e = f;
+      e = f;
+      g = 59;
     }
   }
   return 0;
