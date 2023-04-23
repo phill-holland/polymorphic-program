@@ -35,20 +35,12 @@ void polymorphic::score::compute(std::string value)
 
 	auto first_position = [](std::string to_find, std::string value) 
 	{ 
-		//int idx = 0;
-
         for(int i = 0; i < value.size() - 1; i += 2)
         {
 			if((value[i] == to_find[0]) && (value[i + 1] == to_find[1]))
 			{
 				return i;
-				//++idx;
-				//if(idx >= to_find.size())
-				//{
-				//	return (int)(i - (to_find.size()-1));					
-				//}
 			}
-			//else idx = 0;
         }
 
         return -1;
@@ -69,7 +61,7 @@ void polymorphic::score::compute(std::string value)
 	};
 
     clear();
-	
+
     if(value.size() > 0)
 	{		
       	const int a_len = 6;
