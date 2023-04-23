@@ -194,7 +194,7 @@ std::string polymorphic::program::run(state &s, bool &overrun, int depth, int &m
     else if(block.type == 1)
     {
         int counter = 0;
-        while((block._loop(s))&&(counter < OVERRUN)) //1500, 2500
+        while((block._loop(s))&&(counter < OVERRUN))
         {
             for(std::vector<polymorphic::instrs::instruction>::iterator it = instructions.values.begin(); it < instructions.values.end(); it++)
             {
@@ -335,9 +335,12 @@ void polymorphic::program::copy(polymorphic::program *source, polymorphic::progr
 
     for(it = source->children.begin(); it < source->children.end(); it++)
     {
-        program p;
-        p.copy(&(*it), end, result);
-        children.push_back(p);
+        if((it->children.size() != 0)&&(it->instructions.values.size() != 0))
+        {
+            program p;
+            p.copy(&(*it), end, result);
+            children.push_back(p);
+        }
     }
 }
 

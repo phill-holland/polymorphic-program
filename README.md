@@ -136,94 +136,122 @@ Below is an example output from the program, as you can see, it's not entirely o
 #include <iostream>
 
 using namespace std;
+
 int main() {
-  for (y; y < 0; ++y) {
-    int b = 0;
+  {
+    string b = "";
+    int c = 0;
+    cout << b;
+    b = "he";
+    cout << b;
+    b = "o ";
+    b = "ll";
+    cout << b;
+    b = "o ";
+    cout << b;
+    b = "rl";
+    b = "wo";
+    if (c <= c) {
+      cout << b;
+      b = "rl";
+      cout << b;
+    }
+    if (c >= c) {
+      b = "d!";
+      cout << b;
+      b = "o ";
+      c = 36;
+    }
+  }
+  return 0;
+}
+```
+
+```
+#include <iostream>
+
+using namespace std;
+
+int main() {
+   {
+     string b = "";
+     int c = 0;
+     string d = "";
+     string e = "";
+     d = "o ";
+     cout << b;
+     cout << e;
+     cout << e;
+     b = "he";
+     e = "ll";
+     cout << b;
+     cout << e;
+     cout << d;
+     if (d > e) {
+       d = "wo";
+       b = e;
+       d = "ll";
+       b = "rl";
+       d = b;
+       d = e;
+       e = "wo";
+       cout << e;
+       e = "d!";
+       d = "wo";
+     }
+     if (c <= c) {
+       cout << b;
+       cout << e;
+       e = "ll";
+       d = "ll";
+       b = "he";
+       e = "wo";
+     }
+   }
+   return 0;
+ }
+```
+
+```
+#include <iostream>
+
+using namespace std;
+
+int main() {
+  {
+    string b = "";
     int c = 0;
     string d = "";
-    int e = 0;
-    int f = 0;
-    string g = "";
-    string h = "";
-    string i = "";
-    int j = 0;
-    int k = 0;
-    string l = "";
-    string m = "";
-    int n = 0;
-    string o = "";
-    int p = 0;
-    int q = 0;
-    string r = "";
-    string s = "";
-    string t = "";
-    int u = 0;
-    string v = "";
-    bool w = false;
-    string x = "";
-    string y = "";
-    y = "he";
-    cout << y;
-    y = "ll";
-    cout << y;
-    for (p; p < 17; ++p) {
-      x = "o ";
-      w = false;
-      cout << v;
-      cout << v;
-      cout << x;
-      x = "ll";
-      x = v;
-      v = x;
-      v = x;
-      v = "d!";
-      u = 49; {}
-      if (p == p) {
-        cout << o;
-        o = "o ";
-        o = "wo";
-        p = 67;
-        cout << o;
-        o = "wo";
-        if (b >= n) {
-          b = c;
-          b = 17;
-          cout << m;
-          b = 39;
-          c = b;
-          b = 22;
-          cout << m;
-          m = "rl";
-          b = c;
-          cout << m;
-          cout << l;
-          m = "he"; {}
-          if (c >= b) {}
-          if (f > e) {
-            cout << d;
-          }
-          if (k < j) {
-            cout << i;
-            h = g;
-            h = i;
-            i = "d!";
-            cout << h;
-            cout << i;
-          }
-        } {
-          d = "o ";
-        }
-      }
-      for (q; q < 3; ++q) {
-        cout << t;
-        s = r;
-        s = t;
-        t = "d!";
-        cout << s;
-        cout << t;
-        for (q; q < 1; ++q) {}
-      }
-    } {}
+    string e = "";
+    d = "o ";
+    cout << b;
+    cout << e;
+    cout << e;
+    b = "he";
+    e = "ll";
+    cout << b;
+    cout << e;
+    cout << d;
+    if (d > e) {
+      d = "wo";
+      b = e;
+      d = "ll";
+      b = "rl";
+      d = b;
+      d = e;
+      e = "wo";
+      cout << e;
+      e = "d!";
+      d = "wo";
+    }
+    if (c <= c) {
+      cout << b;
+      cout << e;
+      e = "ll";
+      d = "ll";
+      b = "he";
+      e = "wo";
+    }
   }
   return 0;
 }

@@ -9,19 +9,19 @@ void run()
 {
     polymorphic::settings::settings settings;
 
-    settings._children.depth = 3; // 3
-    settings._children.max = 5; // 5
+    settings._children.depth = 3;
+    settings._children.max = 5;
 
-    settings._instructions.min = 1; //1
-    settings._instructions.max = 15; //25 //15
+    settings._instructions.min = 1;
+    settings._instructions.max = 15; 
 
-    settings._loop.min = 1; // 1
-    settings._loop.max = 5; // 5
+    settings._loop.min = 1;
+    settings._loop.max = 5;
 
-    polymorphic::population p(settings, 200);//250);//500); //200, was 300, try 400
+    polymorphic::population p(settings, 2000);
 
     p.generate();
-    polymorphic::schema best = p.go(400); // 600
+    polymorphic::schema best = p.go(1000);
 
     std::cout << best.output();
     std::tuple<std::string, bool, int, int> result = best.run();

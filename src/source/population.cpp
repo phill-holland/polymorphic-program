@@ -37,7 +37,8 @@ void polymorphic::population::generate()
 
 polymorphic::schema polymorphic::population::go(int iterations)
 {
-    schema temp;
+    schema res;
+    float most = 0.0f;
 
     bool result = false;
     int count = 0;
@@ -54,8 +55,7 @@ polymorphic::schema polymorphic::population::go(int iterations)
         int total_instructions = 0;
         int mutants = 0;
 
-        float total = 0.0f;
-        float most = 0.0f;
+        float total = 0.0f;        
       
         for(int generation = 0; generation < size; ++generation)
         {        
@@ -63,7 +63,8 @@ polymorphic::schema polymorphic::population::go(int iterations)
             float sum = 0.0f;
 
             int offspring = worst();            
-            
+            schema temp;
+
             int t = (std::uniform_int_distribution<int>{0, size - 1})(generator);
             if(((float)t) <= mutation) 
             {
@@ -96,7 +97,9 @@ polymorphic::schema polymorphic::population::go(int iterations)
 
             if(sum > most)
             {
+                res = temp;
                 most = sum;
+
                 for(int f = 1; f < max; ++f)
                 {
                     outputs[f] = outputs[f-1];
@@ -132,7 +135,7 @@ polymorphic::schema polymorphic::population::go(int iterations)
 
     } while(!result);
 
-    return temp;
+    return res;
 }
 
 polymorphic::schema polymorphic::population::top()
